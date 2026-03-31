@@ -17,9 +17,13 @@ export const useCursor = () => {
 };
 
 export const CustomCursor = ({ variant }: { variant: CursorVariant }) => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 150 };
+  // Start off-screen so it doesn't flash at (0,0) on initial load
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
+
+  // 🔥 THE FIX: Much tighter physics. 
+  // Higher stiffness = faster snap. Lower mass = less heavy dragging feel.
+  const springConfig = { damping: 28, stiffness: 700, mass: 0.5 };
   const sx = useSpring(mouseX, springConfig);
   const sy = useSpring(mouseY, springConfig);
 
@@ -28,14 +32,17 @@ export const CustomCursor = ({ variant }: { variant: CursorVariant }) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
+    
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <motion.div
-      className="fixed top-0 left-0 z-[9999] pointer-events-none flex items-center justify-center rounded-full mix-blend-difference"
-      style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%" }}
+      // 🔥 THE FIX: Moved the -50% translation to Tailwind (-translate-x-1/2 -translate-y-1/2) 
+      // This prevents it from fighting with Framer Motion's x and y coordinates
+      className="fixed top-0 left-0 z-[9999] pointer-events-none flex items-center justify-center rounded-full mix-blend-difference -translate-x-1/2 -translate-y-1/2"
+      style={{ x: sx, y: sy }}
       animate={variant}
       variants={cursorVariants}
       transition={{ type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.4 }}

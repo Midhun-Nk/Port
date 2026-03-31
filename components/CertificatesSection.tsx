@@ -8,13 +8,12 @@ interface CertificatesSectionProps {
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-// Added 'skills' array to each certificate object
 const certificates = [
   {
     title: "Meta Frontend Developer",
     issuer: "Meta / Coursera",
     year: "2024",
-    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Meta+Cert",
+    image: "/certificates/certificate-1.png",
     skills: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
@@ -24,7 +23,7 @@ const certificates = [
     title: "AWS Cloud Practitioner",
     issuer: "Amazon Web Services",
     year: "2024",
-    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=AWS+Cert",
+    image: "/certificates/certificate-2.png",
     skills: [
       { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" }
     ]
@@ -33,7 +32,7 @@ const certificates = [
     title: "Fullstack Open",
     issuer: "University of Helsinki",
     year: "2023",
-    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Fullstack+Cert",
+    image: "/certificates/certificate-3.png",
     skills: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
@@ -44,7 +43,7 @@ const certificates = [
     title: "React Advanced Patterns",
     issuer: "Frontend Masters",
     year: "2023",
-    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=React+Cert",
+    image: "/certificates/certificate-4.png",
     skills: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }
     ]
@@ -53,7 +52,7 @@ const certificates = [
     title: "Node.js Design Patterns",
     issuer: "Udemy",
     year: "2022",
-    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Node+Cert",
+    image: "/certificates/certificate-5.png",
     skills: [
       { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }
     ]
@@ -62,7 +61,25 @@ const certificates = [
     title: "JavaScript Algorithms",
     issuer: "freeCodeCamp",
     year: "2022",
-    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=JS+Cert",
+    image: "/certificates/certificate-6.png",
+    skills: [
+      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+    ]
+  },
+  {
+    title: "JavaScript Algorithms",
+    issuer: "freeCodeCamp",
+    year: "2022",
+    image: "/certificates/certificate-7.png",
+    skills: [
+      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+    ]
+  },
+   {
+    title: "JavaScript Algorithms",
+    issuer: "freeCodeCamp",
+    year: "2022",
+    image: "/certificates/certificate-8.png",
     skills: [
       { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
     ]
