@@ -1,176 +1,205 @@
 "use client";
 import { motion } from "framer-motion";
 
-interface CertificatesSectionProps {
+interface FreelanceSectionProps {
   onPointerEnter: () => void;
   onPointerLeave: () => void;
 }
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
-const certificates = [
+const freelanceProjects = [
   {
-    title: "Meta Frontend Developer",
-    issuer: "Meta / Coursera",
+    client: "TechStartup Co.",
+    project: "SaaS Dashboard",
+    description: "Built a full-stack analytics dashboard with real-time data visualization, user management, and subscription billing integration.",
+    tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
+    duration: "3 months",
+    year: "2025",
+    status: "Delivered",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+  },
+  {
+    client: "FoodieHub",
+    project: "Restaurant Ordering App",
+    description: "Developed a cross-platform food ordering application with live order tracking, payment gateway, and admin panel.",
+    tech: ["React Native", "Firebase", "Razorpay"],
+    duration: "2 months",
+    year: "2025",
+    status: "Delivered",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop",
+  },
+  {
+    client: "EduLearn Academy",
+    project: "Learning Management System",
+    description: "Created an LMS platform with video streaming, quiz engine, progress tracking, and certificate generation.",
+    tech: ["Next.js", "MongoDB", "AWS S3", "FFmpeg"],
+    duration: "4 months",
     year: "2024",
-    image: "/certificates/certificate-1.png",
-    skills: [
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
-    ]
+    status: "Delivered",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1974&auto=format&fit=crop",
   },
   {
-    title: "AWS Cloud Practitioner",
-    issuer: "Amazon Web Services",
+    client: "HealthFirst Clinic",
+    project: "Appointment Booking System",
+    description: "Designed and developed an appointment scheduling system with doctor profiles, slot management, and SMS notifications.",
+    tech: ["React", "Express", "Twilio", "MySQL"],
+    duration: "6 weeks",
     year: "2024",
-    image: "/certificates/certificate-2.png",
-    skills: [
-      { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" }
-    ]
+    status: "Delivered",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop",
   },
   {
-    title: "Fullstack Open",
-    issuer: "University of Helsinki",
-    year: "2023",
-    image: "/certificates/certificate-3.png",
-    skills: [
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-      { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" }
-    ]
-  },
-  {
-    title: "React Advanced Patterns",
-    issuer: "Frontend Masters",
-    year: "2023",
-    image: "/certificates/certificate-4.png",
-    skills: [
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }
-    ]
-  },
-  {
-    title: "Node.js Design Patterns",
-    issuer: "Udemy",
-    year: "2022",
-    image: "/certificates/certificate-5.png",
-    skills: [
-      { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }
-    ]
-  },
-  {
-    title: "JavaScript Algorithms",
-    issuer: "freeCodeCamp",
-    year: "2022",
-    image: "/certificates/certificate-6.png",
-    skills: [
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
-    ]
-  },
-  {
-    title: "JavaScript Algorithms",
-    issuer: "freeCodeCamp",
-    year: "2022",
-    image: "/certificates/certificate-7.png",
-    skills: [
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
-    ]
-  },
-  {
-    title: "JavaScript Algorithms",
-    issuer: "freeCodeCamp",
-    year: "2022",
-    image: "/certificates/certificate-8.png",
-    skills: [
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
-    ]
+    client: "CryptoVault",
+    project: "Portfolio Tracker",
+    description: "Built a cryptocurrency portfolio tracker with real-time price feeds, alerts, and P&L analytics.",
+    tech: ["React", "WebSocket", "CoinGecko API", "Chart.js"],
+    duration: "5 weeks",
+    year: "2024",
+    status: "Delivered",
+    image: "https://images.unsplash.com/photo-1605792657360-d58dbd42a6fb?q=80&w=1982&auto=format&fit=crop",
   },
 ];
 
-const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSectionProps) => {
-  return (
-    <section id="certificates" className="px-8 md:px-12 py-32 relative z-10 overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease }}
-      >
-        <div className="flex justify-between items-end mb-16 border-b border-border pb-6">
-          <div>
-            <span className="font-technical text-[10px] text-[#D4AF37] uppercase tracking-widest">Certifications</span>
-            <h2 className="font-display text-5xl md:text-7xl italic tracking-tighter mt-2">Certificates</h2>
-          </div>
-        </div>
+// Map tech names to their specific Devicon SVG paths
+const techIconMap: Record<string, string> = {
+  "React": "react/react-original.svg",
+  "React Native": "react/react-original.svg",
+  "Node.js": "nodejs/nodejs-original.svg",
+  "PostgreSQL": "postgresql/postgresql-original.svg",
+  "Next.js": "nextjs/nextjs-original.svg",
+  "MongoDB": "mongodb/mongodb-original.svg",
+  "Express": "express/express-original.svg",
+  "MySQL": "mysql/mysql-original.svg",
+  "Firebase": "firebase/firebase-plain.svg",
+  "AWS S3": "amazonwebservices/amazonwebservices-original-wordmark.svg",
+};
 
-        {/* 🔥 THE BULLETPROOF GRID CAROUSEL 🔥 */}
-        <div 
-          className="
-            grid grid-flow-col auto-cols-[85vw] sm:auto-cols-[340px] gap-6 
-            overflow-x-auto overscroll-x-contain snap-x snap-mandatory 
-            pb-8 -mx-8 px-8 
-            md:grid-flow-row md:grid-cols-2 lg:grid-cols-3 md:auto-cols-auto 
-            md:overflow-x-visible md:snap-none md:mx-0 md:px-0 md:pb-0
-            [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
-          "
-        >
-          {certificates.map((cert, i) => (
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionProps) => {
+  return (
+    <section id="freelance" className="px-8 md:px-12 py-24 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2, margin: "-50px" }} // Added margin to trigger slightly earlier
+        transition={{ duration: 0.6, ease }}
+        className="flex justify-between items-end mb-16 border-b border-border pb-6"
+      >
+        <div>
+          <span className="font-technical text-[10px] text-primary uppercase tracking-widest">
+            Client Work
+          </span>
+          <h2 className="font-display text-5xl md:text-7xl italic tracking-tighter mt-2">
+            Freelance
+          </h2>
+        </div>
+        <span className="font-technical text-[10px] text-muted-foreground tracking-widest uppercase hidden md:inline-block">
+          {freelanceProjects.length} Projects Delivered
+        </span>
+      </motion.div>
+
+      <div className="space-y-6">
+        {freelanceProjects.map((project, i) => (
+          <motion.div
+            key={project.project}
+            initial={{ opacity: 0, y: 24 }} // Removed laggy blur(4px)
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.5, ease, delay: i * 0.05 }} // Slightly faster stagger
+            className="will-change-[opacity,transform]" // Hint for the GPU
+          >
             <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease, delay: i * 0.08 }}
-              whileHover={{ y: -6, borderColor: "#D4AF37" }}
               onMouseEnter={onPointerEnter}
               onMouseLeave={onPointerLeave}
-              // 🔥 Snap center added directly to the card
-              className="group snap-center p-5 border border-border bg-card/30 backdrop-blur-sm hover:bg-card/60 transition-all duration-500 flex flex-col h-full w-full"
+              whileHover={{ x: 8 }}
+              transition={{ duration: 0.3, ease }}
+              className="group border border-border hover:border-primary/40 p-6 md:p-8 transition-colors duration-300 relative overflow-hidden bg-background/50 backdrop-blur-sm transform-gpu"
             >
-              {/* Image Container with Hover Effects */}
-              <div className="w-full aspect-[4/3] mb-6 overflow-hidden rounded border border-border/50 bg-muted/20 relative shrink-0">
-                <img
-                  src={cert.image}
-                  alt={`${cert.title} Certificate`}
-                  className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out"
-                />
-              </div>
+              {/* Hover glow background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              {/* Text Content */}
-              <div className="flex flex-col flex-grow">
-                <span className="font-technical text-[10px] text-[#D4AF37] uppercase tracking-widest">
-                  {cert.year}
-                </span>
-                <h3 className="font-display text-xl italic mt-3 group-hover:text-[#D4AF37] transition-colors duration-500">
-                  {cert.title}
-                </h3>
-                <p className="font-technical text-[11px] text-muted-foreground mt-2 tracking-wide mb-6">
-                  {cert.issuer}
-                </p>
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center">
+                
+                {/* Expandable Image Preview (Optimized Transitions) */}
+                <div className="w-full h-48 mb-6 md:mb-0 md:h-24 md:w-0 md:opacity-0 group-hover:md:w-48 group-hover:md:opacity-100 group-hover:md:mr-8 overflow-hidden rounded-lg transition-[width,opacity,margin] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex-shrink-0 border border-border/20 shadow-xl relative will-change-[width,opacity]">
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300 z-10 pointer-events-none" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.image}
+                    alt={project.project}
+                    loading="lazy" // Prevents lag on load
+                    decoding="async" // Offloads image decoding from the main thread
+                    className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
+                  />
+                </div>
 
-                {/* Skills Badges - Pushed to the bottom using mt-auto */}
-                <div className="mt-auto pt-4 flex flex-wrap gap-2 border-t border-border/50">
-                  {cert.skills.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="flex items-center gap-1.5 font-technical text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/20 group-hover:bg-[#D4AF37]/20 group-hover:border-[#D4AF37]/40 transition-colors duration-500"
-                    >
-                      <img
-                        src={skill.icon}
-                        alt={skill.name}
-                        className="w-4 h-4 object-contain"
-                        loading="lazy"
-                      />
-                      {skill.name}
+                {/* Content Container */}
+                <div className="flex flex-col md:flex-row md:items-center gap-6 flex-1 w-full">
+                  {/* Left: Index + Client */}
+                  <div className="flex items-center gap-6 md:w-1/4 flex-shrink-0">
+                    <span className="font-display text-3xl md:text-4xl italic text-primary/30 group-hover:text-primary transition-colors duration-300">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                  ))}
+                    <div>
+                      <p className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest">
+                        {project.client}
+                      </p>
+                      <h3 className="font-display text-xl md:text-2xl italic mt-1 group-hover:text-primary transition-colors duration-300">
+                        {project.project}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Center: Description */}
+                  <p className="text-sm text-muted-foreground leading-relaxed md:flex-1">
+                    {project.description}
+                  </p>
+
+                  {/* Right: Meta */}
+                  <div className="flex flex-wrap md:flex-col items-start md:items-end gap-2 md:w-32 flex-shrink-0">
+                    <span className="font-technical text-[10px] text-primary uppercase tracking-widest px-3 py-1 border border-primary/30 bg-primary/5">
+                      {project.status}
+                    </span>
+                    <span className="font-technical text-[10px] text-muted-foreground tracking-widest">
+                      {project.duration}
+                    </span>
+                    <span className="font-technical text-[10px] text-muted-foreground tracking-widest">
+                      {project.year}
+                    </span>
+                  </div>
                 </div>
               </div>
+
+              {/* Tech tags with Icons */}
+              <div className="relative z-10 flex flex-wrap gap-2 mt-5 pt-5 border-t border-border/50">
+                {project.tech.map((t) => {
+                  const iconPath = techIconMap[t];
+                  return (
+                    <span
+                      key={t}
+                      className="flex items-center gap-1.5 font-technical text-[9px] uppercase tracking-widest text-muted-foreground px-3 py-1.5 border border-border/60 group-hover:border-primary/20 group-hover:text-foreground transition-colors duration-300 bg-background/50"
+                    >
+                      {iconPath && (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconPath}`}
+                          alt={`${t} icon`}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-3.5 h-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                        />
+                      )}
+                      {t}
+                    </span>
+                  );
+                })}
+              </div>
             </motion.div>
-          ))}
-        </div>
-      </motion.div>
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 };
 
-export default CertificatesSection;
+export default FreelanceSection;
