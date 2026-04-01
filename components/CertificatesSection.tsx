@@ -10,28 +10,30 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const certificates = [
   {
-    title: "Meta Frontend Developer",
-    issuer: "Meta / Coursera",
-    year: "2024",
+    title: "Python & Django Development",
+    issuer: "Udemy",
+    year: "2025",
     image: "/certificates/certificate-1.png",
     skills: [
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+      { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" },
+      { name: "bootstrap", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg" }
     ]
   },
   {
-    title: "AWS Cloud Practitioner",
-    issuer: "Amazon Web Services",
-    year: "2024",
+    title: "Data Structures Using Python",
+    issuer: "Udemy",
+    year: "2025",
     image: "/certificates/certificate-2.png",
     skills: [
-      { name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" }
+      { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "DSA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
     ]
   },
   {
-    title: "Fullstack Open",
-    issuer: "University of Helsinki",
-    year: "2023",
+    title: "IEEE SPS Kerala Chapter",
+    issuer: "MDIT",
+    year: "2024",
     image: "/certificates/certificate-3.png",
     skills: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
@@ -40,55 +42,65 @@ const certificates = [
     ]
   },
   {
-    title: "React Advanced Patterns",
-    issuer: "Frontend Masters",
-    year: "2023",
+    title: "Responsive Web Design",
+    issuer: "freeCodeCamp",
+    year: "2024",
     image: "/certificates/certificate-4.png",
     skills: [
-      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }
+      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+      { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" }
     ]
   },
   {
-    title: "Node.js Design Patterns",
-    issuer: "Udemy",
-    year: "2022",
+    title: "Python Intership",
+    issuer: "Revertech IT Solution",
+    year: "2023",
     image: "/certificates/certificate-5.png",
     skills: [
-      { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }
+      { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
     ]
   },
   {
-    title: "JavaScript Algorithms",
-    issuer: "freeCodeCamp",
-    year: "2022",
+    title: "Full Stack Developer",
+    issuer: "Edunet Foundation",
+    year: "2025",
     image: "/certificates/certificate-6.png",
     skills: [
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+      { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+      { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" }
     ]
   },
   {
-    title: "JavaScript Algorithms",
-    issuer: "freeCodeCamp",
-    year: "2022",
+    title: "Introduction to SQL",
+    issuer: "SkillUp",
+    year: "2025",
     image: "/certificates/certificate-7.png",
     skills: [
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+      { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" }
     ]
   },
   {
-    title: "JavaScript Algorithms",
-    issuer: "freeCodeCamp",
-    year: "2022",
+    title: "Python & Django REST API",
+    issuer: "Udemy",
+    year: "2025",
     image: "/certificates/certificate-8.png",
     skills: [
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" }
+      { name: "django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" },
+      { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" }
     ]
   },
 ];
 
+// Sort certificates from newest to oldest
+const sortedCertificates = [...certificates].sort((a, b) => Number(b.year) - Number(a.year));
+
 const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSectionProps) => {
   return (
-    <section id="certificates" className="px-8 md:px-12 py-32 relative z-10">
+    <section id="certificates" className="px-8 md:px-12 py-10 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -102,12 +114,9 @@ const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSec
           </div>
         </div>
 
-        {/* UPDATED CONTAINER: 
-          Uses flex + horizontal scroll on mobile, switches to grid on md screens.
-          Hides scrollbar and enables smooth snapping.
-        */}
+        {/* UPDATED CONTAINER */}
         <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8 -mx-8 px-8 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {certificates.map((cert, i) => (
+          {sortedCertificates.map((cert, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -117,10 +126,6 @@ const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSec
               whileHover={{ y: -6, borderColor: "#D4AF37" }}
               onMouseEnter={onPointerEnter}
               onMouseLeave={onPointerLeave}
-              /* UPDATED ITEM: 
-                Sets fixed width on mobile (85vw) so they don't shrink, 
-                and snaps to center on scroll. Returns to auto width on md.
-              */
               className="w-[85vw] sm:w-[350px] md:w-auto shrink-0 snap-center md:snap-align-none group p-5 border border-border bg-card/30 backdrop-blur-sm hover:bg-card/60 transition-all duration-500 flex flex-col h-full rounded-xl"
             >
               {/* Image Container with Hover Effects */}
@@ -144,8 +149,8 @@ const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSec
                   {cert.issuer}
                 </p>
 
-                {/* Skills Badges - Pushed to the bottom using mt-auto */}
-                <div className="mt-auto pt-4 flex flex-wrap gap-2 border-t border-border/50">
+                {/* Skills Badges */}
+                <div className="mt-auto pt-4 flex flex-wrap gap-2 border-t border-primary/50">
                   {cert.skills.map((skill, index) => (
                     <span
                       key={index}
