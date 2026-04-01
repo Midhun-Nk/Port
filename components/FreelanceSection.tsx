@@ -77,11 +77,11 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionProps) => {
   return (
-    <section id="freelance" className="px-8 md:px-12 py-24 relative z-10">
+    <section id="freelance" className="px-8 md:px-12 py-20 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2, margin: "-50px" }} // Added margin to trigger slightly earlier
+        viewport={{ once: true, amount: 0.2, margin: "-50px" }}
         transition={{ duration: 0.6, ease }}
         className="flex justify-between items-end mb-16 border-b border-border pb-6"
       >
@@ -98,28 +98,34 @@ const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionPr
         </span>
       </motion.div>
 
-      <div className="space-y-6">
+      {/* UPDATED CONTAINER:
+        Uses flex for mobile horizontal scroll, switches to flex-col on desktop.
+        Hides scrollbar and enables edge-to-edge scrolling with negative margins.
+      */}
+      <div className="flex md:flex-col overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none gap-6 pb-8 md:pb-0 -mx-8 px-8 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {freelanceProjects.map((project, i) => (
           <motion.div
             key={project.project}
-            initial={{ opacity: 0, y: 24 }} // Removed laggy blur(4px)
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.5, ease, delay: i * 0.05 }} // Slightly faster stagger
-            className="will-change-[opacity,transform]" // Hint for the GPU
+            transition={{ duration: 0.5, ease, delay: i * 0.05 }}
+            /* UPDATED ITEM SIZING: w-[85vw] on mobile to prevent shrinking, auto on desktop */
+            className="will-change-[opacity,transform] w-[85vw] sm:w-[400px] md:w-auto shrink-0 snap-center md:snap-align-none flex flex-col"
           >
             <motion.div
               onMouseEnter={onPointerEnter}
               onMouseLeave={onPointerLeave}
               whileHover={{ x: 8 }}
               transition={{ duration: 0.3, ease }}
-              className="group border border-border hover:border-primary/40 p-6 md:p-8 transition-colors duration-300 relative overflow-hidden bg-background/50 backdrop-blur-sm transform-gpu"
+              /* Added h-full and flex-col so cards stretch equally on mobile */
+              className="group border border-border hover:border-primary/40 p-6 md:p-8 transition-colors duration-300 relative overflow-hidden bg-background/50 backdrop-blur-sm transform-gpu h-full flex flex-col"
             >
               {/* Hover glow background */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              <div className="relative z-10 flex flex-col md:flex-row md:items-center">
-                
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center flex-grow">
+
                 {/* Expandable Image Preview (Optimized Transitions) */}
                 <div className="w-full h-48 mb-6 md:mb-0 md:h-24 md:w-0 md:opacity-0 group-hover:md:w-48 group-hover:md:opacity-100 group-hover:md:mr-8 overflow-hidden rounded-lg transition-[width,opacity,margin] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex-shrink-0 border border-border/20 shadow-xl relative will-change-[width,opacity]">
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300 z-10 pointer-events-none" />
@@ -127,8 +133,8 @@ const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionPr
                   <img
                     src={project.image}
                     alt={project.project}
-                    loading="lazy" // Prevents lag on load
-                    decoding="async" // Offloads image decoding from the main thread
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
                   />
                 </div>
@@ -136,7 +142,7 @@ const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionPr
                 {/* Content Container */}
                 <div className="flex flex-col md:flex-row md:items-center gap-6 flex-1 w-full">
                   {/* Left: Index + Client */}
-                  <div className="flex items-center gap-6 md:w-1/4 flex-shrink-0">
+                  <div className="flex items-start md:items-center gap-4 md:gap-6 md:w-1/4 flex-shrink-0">
                     <span className="font-display text-3xl md:text-4xl italic text-primary/30 group-hover:text-primary transition-colors duration-300">
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -156,22 +162,22 @@ const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionPr
                   </p>
 
                   {/* Right: Meta */}
-                  <div className="flex flex-wrap md:flex-col items-start md:items-end gap-2 md:w-32 flex-shrink-0">
+                  <div className="flex flex-wrap md:flex-col items-center md:items-end gap-3 md:gap-2 md:w-32 flex-shrink-0">
                     <span className="font-technical text-[10px] text-primary uppercase tracking-widest px-3 py-1 border border-primary/30 bg-primary/5">
                       {project.status}
                     </span>
-                    <span className="font-technical text-[10px] text-muted-foreground tracking-widest">
+                    <span className="font-technical text-[10px] text-muted-foreground tracking-widest hidden md:block">
                       {project.duration}
                     </span>
-                    <span className="font-technical text-[10px] text-muted-foreground tracking-widest">
+                    <span className="font-technical text-[10px] text-muted-foreground tracking-widest hidden md:block">
                       {project.year}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Tech tags with Icons */}
-              <div className="relative z-10 flex flex-wrap gap-2 mt-5 pt-5 border-t border-border/50">
+              {/* Tech tags with Icons - Pushed to bottom using mt-auto on mobile */}
+              <div className="relative z-10 flex flex-wrap gap-2 mt-auto md:mt-5 pt-5 border-t border-border/50">
                 {project.tech.map((t) => {
                   const iconPath = techIconMap[t];
                   return (

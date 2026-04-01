@@ -1,84 +1,4 @@
 "use client";
-// import { motion } from "framer-motion";
-
-// interface WorkSectionProps {
-//   onViewEnter: () => void;
-//   onViewLeave: () => void;
-//   onPointerEnter: () => void;
-//   onPointerLeave: () => void;
-// }
-
-// const projects = [
-//   { id: "01", title: "E-Commerce Platform", category: "Fullstack", year: "2025", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=80" },
-//   { id: "02", title: "Content Dashboard", category: "Web App", year: "2024", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80" },
-//   { id: "03", title: "Portfolio Generator", category: "Open Source", year: "2024", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" },
-// ];
-
-// const ease = [0.16, 1, 0.3, 1] as const;
-
-// const WorkSection = ({ onViewEnter, onViewLeave, onPointerEnter, onPointerLeave }: WorkSectionProps) => {
-//   return (
-//     <section className="px-8 md:px-12 py-24">
-//       <div className="flex justify-between items-end mb-16 border-b border-border pb-6">
-//         <div>
-//           <span className="font-technical text-[10px] text-primary uppercase tracking-widest">Selected Work</span>
-//           <h2 className="font-display text-5xl md:text-7xl italic tracking-tighter mt-2">Projects</h2>
-//         </div>
-//         <button
-//           onMouseEnter={onPointerEnter}
-//           onMouseLeave={onPointerLeave}
-//           className="font-technical text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors"
-//         >
-//           View All →
-//         </button>
-//       </div>
-
-//       <div className="space-y-20">
-//         {projects.map((project, i) => (
-//           <motion.article
-//             key={project.id}
-//             initial={{ opacity: 0, y: 60 }}
-//             whileInView={{ opacity: 1, y: 0 }}
-//             viewport={{ once: true, margin: "-100px" }}
-//             transition={{ duration: 0.8, ease, delay: i * 0.1 }}
-//             className="group"
-//           >
-//             <div
-//               onMouseEnter={onViewEnter}
-//               onMouseLeave={onViewLeave}
-//               className="relative aspect-[16/7] overflow-hidden rounded-sm"
-//             >
-//               <motion.img
-//                 whileHover={{ scale: 1.03 }}
-//                 transition={{ duration: 1.2, ease }}
-//                 src={project.image}
-//                 alt={project.title}
-//                 className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
-//               />
-//               <div className="absolute inset-0 bg-background/10 group-hover:bg-transparent transition-colors duration-500" />
-//             </div>
-
-//             <div className="flex justify-between items-start mt-6">
-//               <div>
-//                 <span className="font-technical text-[10px] text-primary uppercase tracking-widest">
-//                   Project {project.id}
-//                 </span>
-//                 <h3 className="font-display text-2xl md:text-3xl italic mt-1">{project.title}</h3>
-//               </div>
-//               <span className="font-technical text-[10px] text-muted-foreground tracking-widest uppercase">
-//                 {project.year} / {project.category}
-//               </span>
-//             </div>
-//           </motion.article>
-//         ))}
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default WorkSection;
-
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
@@ -111,9 +31,8 @@ const WorkSection = ({ onViewEnter, onViewLeave, onPointerEnter, onPointerLeave 
     ? projects
     : projects.filter((p) => p.category === activeFilter);
 
-  // First 4 in the grid, rest scroll horizontally
+  // First 4 in the grid, rest scroll horizontally (if you want all to show, just use `filtered` instead of `gridProjects`)
   const gridProjects = filtered.slice(0, 4);
-  const scrollProjects = filtered.slice(4);
 
   return (
     <section className="px-8 md:px-12">
@@ -133,8 +52,8 @@ const WorkSection = ({ onViewEnter, onViewLeave, onPointerEnter, onPointerLeave 
             onMouseEnter={onPointerEnter}
             onMouseLeave={onPointerLeave}
             className={`font-technical text-[11px] uppercase tracking-[0.2em] px-5 py-2.5 border transition-all duration-300 ${activeFilter === f
-                ? "border-primary text-primary bg-primary/10"
-                : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+              ? "border-primary text-primary bg-primary/10"
+              : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
               }`}
           >
             {f}
@@ -142,8 +61,8 @@ const WorkSection = ({ onViewEnter, onViewLeave, onPointerEnter, onPointerLeave 
         ))}
       </div>
 
-      {/* 2×2 Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Responsive Container: Flex/Horizontal Scroll on Mobile -> Grid on Desktop */}
+      <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none md:grid-cols-2 gap-8 pb-8 -mx-8 px-8 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <AnimatePresence mode="popLayout">
           {gridProjects.map((project) => (
             <ProjectCard
@@ -156,25 +75,6 @@ const WorkSection = ({ onViewEnter, onViewLeave, onPointerEnter, onPointerLeave 
         </AnimatePresence>
       </div>
 
-      {/* Horizontal scroll for extras */}
-      {/* {scrollProjects.length > 0 && (
-        <div className="mt-10">
-          <span className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest mb-4 block">
-            More Projects
-          </span>
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            {scrollProjects.map((project) => (
-              <div key={project.id} className="min-w-[320px] md:min-w-[400px] flex-shrink-0">
-                <ProjectCard
-                  project={project}
-                  onViewEnter={onViewEnter}
-                  onViewLeave={onViewLeave}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )} */}
     </section>
   );
 };
@@ -192,7 +92,8 @@ const ProjectCard = ({ project, onViewEnter, onViewLeave }: ProjectCardProps) =>
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.95 }}
     transition={{ duration: 0.5, ease }}
-    className="group"
+    // UPDATED CLASSES: Added w-[85vw] for mobile sizing, shrink-0 to prevent squishing, and snap-center for swipe snapping.
+    className="group w-[85vw] sm:w-[400px] md:w-auto shrink-0 snap-center md:snap-align-none flex flex-col"
   >
     <div
       onMouseEnter={onViewEnter}

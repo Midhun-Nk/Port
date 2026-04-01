@@ -161,7 +161,8 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
           <span className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest block mb-6">
             Popular Reels
           </span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* UPDATED CONTAINER: Flex on mobile for horizontal scroll, Grid on desktop */}
+          <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none md:grid-cols-2 lg:grid-cols-4 gap-4 pb-8 md:pb-0 -mx-8 px-8 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {reels.map((reel, i) => (
               <motion.div
                 key={reel.title}
@@ -172,9 +173,10 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
                 whileHover={{ y: -6, scale: 1.02 }}
                 onMouseEnter={onPointerEnter}
                 onMouseLeave={onPointerLeave}
-                className="group border border-border rounded-xl overflow-hidden bg-card/20 hover:border-primary/30 transition-all duration-500 cursor-pointer"
+                /* UPDATED ITEM: Added w-[85vw] and snap-center for mobile swipe snapping */
+                className="w-[85vw] sm:w-[300px] md:w-auto shrink-0 snap-center md:snap-align-none group border border-border rounded-xl overflow-hidden bg-card/20 hover:border-primary/30 transition-all duration-500 cursor-pointer flex flex-col"
               >
-                <div className={`h-40 bg-gradient-to-br ${reel.gradient} flex items-center justify-center relative`}>
+                <div className={`h-40 bg-gradient-to-br ${reel.gradient} flex items-center justify-center relative shrink-0`}>
                   <motion.div
                     className="w-12 h-12 rounded-full bg-foreground/10 backdrop-blur-sm flex items-center justify-center border border-foreground/20"
                     whileHover={{ scale: 1.15 }}
@@ -182,7 +184,7 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
                     <Play className="w-5 h-5 text-foreground ml-0.5" />
                   </motion.div>
                 </div>
-                <div className="p-4">
+                <div className="p-4 flex-grow flex flex-col justify-between">
                   <h4 className="font-technical text-xs text-foreground font-medium mb-3 leading-relaxed">
                     {reel.title}
                   </h4>

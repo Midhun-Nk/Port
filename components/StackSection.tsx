@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 interface StackSectionProps {
   onPointerEnter: () => void;
@@ -56,22 +57,91 @@ const categories = [
 ];
 
 const StackSection = ({ onPointerEnter, onPointerLeave }: StackSectionProps) => {
+  const [activeTab, setActiveTab] = useState(categories[0].title);
+
+  // Reusable component for the tool chips so we don't repeat code
+  const renderTools = (tools: typeof categories[0]["tools"]) => (
+    <div className="flex flex-wrap gap-3">
+      {tools.map((tool) => (
+        <motion.span
+          key={tool.name}
+          whileHover={{ scale: 1.08, y: -3 }}
+          transition={{ duration: 0.3, ease }}
+          onMouseEnter={onPointerEnter}
+          onMouseLeave={onPointerLeave}
+          className="flex items-center gap-2.5 font-technical text-[11px] uppercase tracking-[0.12em] px-5 py-3 border border-border text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-500 rounded-sm"
+        >
+          <img
+            src={tool.icon}
+            alt={tool.name}
+            className="w-5 h-5 object-contain"
+            loading="lazy"
+          />
+          {tool.name}
+        </motion.span>
+      ))}
+    </div>
+  );
+
   return (
-    <section id="stack" className="px-8 md:px-12  relative z-10">
+    <section id="stack" className="px-8 md:px-12 relative z-10 py-10">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease }}
       >
-        <div className="flex justify-between items-end mb-16 border-b border-border pb-6">
+        <div className="flex justify-between items-end mb-10 md:mb-16 border-b border-border pb-6">
           <div>
             <span className="font-technical text-[10px] text-primary uppercase tracking-widest">Technologies</span>
             <h2 className="font-display text-5xl md:text-7xl italic tracking-tighter mt-2">My Stack</h2>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* ========================================= */}
+        {/* MOBILE VIEW (Filter Tabs instead of Grid) */}
+        {/* ========================================= */}
+        <div className="md:hidden block">
+          {/* Scrollable Tabs */}
+          <div className="flex gap-3 overflow-x-auto snap-x pb-6 -mx-8 px-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {categories.map((cat) => (
+              <button
+                key={cat.title}
+                onClick={() => setActiveTab(cat.title)}
+                className={`shrink-0 snap-center font-technical text-[11px] uppercase tracking-[0.12em] px-5 py-2.5 border transition-all duration-300 rounded-full ${activeTab === cat.title
+                    ? "border-primary text-primary bg-primary/10"
+                    : "border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+                  }`}
+              >
+                {cat.title}
+              </button>
+            ))}
+          </div>
+
+          {/* Active Category Content (Animated) */}
+          <div className="mt-2 min-h-[300px]">
+            <AnimatePresence mode="wait">
+              {categories.map((cat) =>
+                cat.title === activeTab ? (
+                  <motion.div
+                    key={cat.title}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3, ease }}
+                  >
+                    {renderTools(cat.tools)}
+                  </motion.div>
+                ) : null
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ========================================= */}
+        {/* DESKTOP VIEW (Full Grid)                  */}
+        {/* ========================================= */}
+        <div className="hidden md:grid md:grid-cols-2 gap-12">
           {categories.map((cat, i) => (
             <motion.div
               key={cat.title}
@@ -84,29 +154,11 @@ const StackSection = ({ onPointerEnter, onPointerLeave }: StackSectionProps) => 
               <h3 className="font-display text-2xl italic mb-6 text-foreground">
                 {cat.title}<span className="text-primary">.</span>
               </h3>
-              <div className="flex flex-wrap gap-3">
-                {cat.tools.map((tool) => (
-                  <motion.span
-                    key={tool.name}
-                    whileHover={{ scale: 1.08, y: -3 }}
-                    transition={{ duration: 0.3, ease }}
-                    onMouseEnter={onPointerEnter}
-                    onMouseLeave={onPointerLeave}
-                    className="flex items-center gap-2.5 font-technical text-[11px] uppercase tracking-[0.12em] px-5 py-3 border border-border text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-500"
-                  >
-                    <img
-                      src={tool.icon}
-                      alt={tool.name}
-                      className="w-5 h-5 object-contain"
-                      loading="lazy"
-                    />
-                    {tool.name}
-                  </motion.span>
-                ))}
-              </div>
+              {renderTools(cat.tools)}
             </motion.div>
           ))}
         </div>
+
       </motion.div>
     </section>
   );

@@ -61,7 +61,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
       setSending(false);
       toast.success("Message sent! I'll get back to you soon.");
       setForm({ name: "", email: "", subject: "", message: "" });
-    }, 1500);
+    ' '}, 1500);
   };
 
   return (
