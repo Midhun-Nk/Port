@@ -15,7 +15,7 @@ interface NavProps {
 const sections = [
   { label: "About", hash: "#about", path: "/about" },
   { label: "Content", hash: "#content", path: "/content" },
-  { label: "Experience", hash: "#experience", path: "/experience" },
+  // { label: "Experience", hash: "#experience", path: "/experience" },
   { label: "Freelance", hash: "#freelance", path: "/freelance" },
   { label: "Stack", hash: "#stack", path: "/stack" },
   { label: "Projects", hash: "#projects", path: "/projects" },

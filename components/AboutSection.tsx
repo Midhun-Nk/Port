@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image"; // Assuming Next.js, otherwise use standard <img>
 
 interface AboutExperienceProps {
   onPointerEnter?: () => void;
@@ -44,16 +43,41 @@ const skills = [
 
 const services = [
   {
-    title: "Web Dev",
-    description: "Scalable Full-Stack Apps",
+    title: "Web Development",
+    description: "MERN Stack, React, Next.js",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="20" height="14" x="2" y="3" rx="2" />
+        <line x1="8" x2="16" y1="21" y2="21" />
+        <line x1="12" x2="12" y1="17" y2="21" />
+      </svg>
+    ),
+    colorClass: "text-blue-500",
+    bgClass: "bg-blue-500/10",
   },
   {
-    title: "App Dev",
-    description: "Cross-Platform Mobile",
+    title: "App Development",
+    description: "Flutter, Dart, React Native",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+        <path d="M12 18h.01" />
+      </svg>
+    ),
+    colorClass: "text-emerald-500",
+    bgClass: "bg-emerald-500/10",
   },
   {
-    title: "Content",
-    description: "Tech Tutorials & Vlogs",
+    title: "Content Creation",
+    description: "Technical tutorials, coding devlogs.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m22 8-6 4 6 4V8Z" />
+        <rect width="14" height="12" x="2" y="6" rx="2" ry="2" />
+      </svg>
+    ),
+    colorClass: "text-purple-500",
+    bgClass: "bg-purple-500/10",
   },
 ];
 
@@ -70,12 +94,12 @@ const AboutExperienceSection = ({ onPointerEnter, onPointerLeave }: AboutExperie
       </div>
 
       <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 relative z-10">
-        
+
         {/* ======================================= */}
         {/* COLUMN 1: ABOUT ME                      */}
         {/* ======================================= */}
         <div className="lg:col-span-5 flex flex-col items-start space-y-10">
-          
+
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -103,7 +127,7 @@ const AboutExperienceSection = ({ onPointerEnter, onPointerLeave }: AboutExperie
               className="flex flex-col space-y-5"
             >
               <p className="font-technical text-sm text-muted-foreground leading-relaxed">
-                My name is Midhun NK. I am a <span className="text-primary">Full Stack Developer</span> and Creator. 
+                My name is Midhun NK. I am a <span className="text-primary">Full Stack Developer</span> and Creator.
                 Armed with a B.Tech in Computer Science, I specialize in bridging the gap between technical excellence and engaging storytelling.
               </p>
               <p className="font-technical text-sm text-muted-foreground leading-relaxed">
@@ -111,61 +135,44 @@ const AboutExperienceSection = ({ onPointerEnter, onPointerLeave }: AboutExperie
               </p>
             </motion.div>
 
-            {/* Visual Skills/Tech Stack */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease, delay: 0.2 }}
-            >
-              <span className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest block mb-4">
-                Core Arsenal
-              </span>
-              <div className="flex flex-wrap gap-3">
-                {skills.map((skill, index) => (
-                  <div key={index} className="group relative flex flex-col items-center justify-center">
-                    <div className="w-12 h-12 rounded-xl border border-border bg-card/20 flex items-center justify-center hover:border-primary/40 hover:bg-card/40 transition-all duration-300">
-                      {/* Using standard img tag for simplicity, swap to next/image if preferred */}
-                      <img 
-                        src={skill.icon} 
-                        alt={skill.name} 
-                        className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-sm" 
-                      />
-                    </div>
-                    {/* Tooltip Label */}
-                    <span className="absolute -bottom-5 font-technical text-[9px] text-muted-foreground uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                      {skill.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Services Replaced Stats */}
+            {/* Services Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease, delay: 0.3 }}
-              className="pt-6 border-t border-border/40 mt-2"
+              className="pt-3 border-t border-border/40"
             >
-              <span className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest block mb-4">
+              <span className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest block mb-4 mt-2">
                 Services I Offer
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+              <div className="flex flex-col space-y-3">
                 {services.map((service, index) => (
-                  <div 
-                    key={index} 
-                    onMouseEnter={onPointerEnter} 
+                  <div
+                    key={index}
+                    onMouseEnter={onPointerEnter}
                     onMouseLeave={onPointerLeave}
-                    className="border border-border/60 rounded-xl p-4 bg-card/10 hover:border-primary/40 hover:bg-card/30 transition-all duration-300"
+                    /* UPDATED CLASSES: Matched exact container styling from the Experience cards */
+                    className="group flex flex-row items-center border border-border rounded-xl p-5 md:p-6 bg-card/20 hover:border-primary/30 hover:bg-card/40 transition-all duration-400 relative overflow-hidden"
                   >
-                    <h4 className="font-display text-xl italic tracking-tight text-foreground mb-1.5 group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h4>
-                    <p className="font-technical text-[9px] text-muted-foreground uppercase tracking-widest leading-relaxed">
-                      {service.description}
-                    </p>
+                    {/* Icon Container */}
+                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center shrink-0 mr-5 ${service.bgClass} ${service.colorClass} group-hover:scale-105 transition-transform duration-400`}>
+                      {service.icon}
+                    </div>
+
+                    {/* Text Content */}
+                    <div className="flex flex-col relative z-10">
+                      <h4 className="font-display text-xl italic tracking-tight text-foreground group-hover:text-primary transition-colors duration-400">
+                        {service.title}
+                      </h4>
+                      <p className="font-technical text-[13px] text-muted-foreground mt-1">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* Subtle hover glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   </div>
                 ))}
               </div>
@@ -180,8 +187,8 @@ const AboutExperienceSection = ({ onPointerEnter, onPointerLeave }: AboutExperie
         {/* COLUMN 2: EXPERIENCE                    */}
         {/* ======================================= */}
         <div className="lg:col-span-6 flex flex-col items-start w-full mt-10 lg:mt-0">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -198,7 +205,7 @@ const AboutExperienceSection = ({ onPointerEnter, onPointerLeave }: AboutExperie
 
           {/* Dynamic Flexbox Timeline */}
           <div className="relative w-full">
-            
+
             {/* Continuous Vertical Line */}
             <motion.div
               initial={{ height: 0 }}
@@ -248,7 +255,7 @@ const AboutExperienceSection = ({ onPointerEnter, onPointerLeave }: AboutExperie
                         {exp.period}
                       </span>
                     </div>
-                    
+
                     <p className="font-technical text-[13px] text-muted-foreground leading-relaxed relative z-10">
                       {exp.description}
                     </p>

@@ -65,7 +65,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
   };
 
   return (
-    <section id="contact" className="px-8 md:px-12 py-32 relative z-10">
+    <section id="contact" className="px-8 md:px-12 py-10 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

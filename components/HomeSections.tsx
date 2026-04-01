@@ -28,7 +28,7 @@ export default function HomeSections() {
       />
       <AboutSection {...cursorProps} />
       <ContentSection {...cursorProps} />
-      <ExperienceSection {...cursorProps} />
+      {/* <ExperienceSection {...cursorProps} /> */}
       <FreelanceSection {...cursorProps} />
       <StackSection {...cursorProps} />
       <section id="projects">
