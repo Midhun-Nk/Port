@@ -81,11 +81,11 @@ const Nav = ({ onHover, onLeave }: NavProps) => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 md:px-12 py-6 border-b border-border backdrop-blur-md bg-background/80"
+      className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 md:px-12 py-3 border-b border-border backdrop-blur-md bg-background/80"
     >
       {/* Brand / Logo */}
-      <span 
-        className="font-display text-3xl md:text-4xl font-black italic tracking-tight text-foreground cursor-pointer transition-transform hover:scale-105" 
+      <span
+        className="font-display text-3xl md:text-4xl font-black italic tracking-tight text-foreground cursor-pointer transition-transform hover:scale-105"
         onClick={handleLogoClick}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}
@@ -109,20 +109,18 @@ const Nav = ({ onHover, onLeave }: NavProps) => {
             >
               {/* Text Color Logic */}
               <span
-                className={`${
-                  isActive
+                className={`${isActive
                     ? "text-primary"
                     : "text-muted-foreground group-hover:text-primary"
-                }`}
+                  }`}
               >
                 {item.label}
               </span>
 
               {/* Animated Underline Effect */}
-              <span 
-                className={`absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-300 ease-out ${
-                  isActive ? "w-full" : "w-0 group-hover:w-full"
-                }`}
+              <span
+                className={`absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-300 ease-out ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
               />
             </Link>
           );
@@ -135,7 +133,7 @@ const Nav = ({ onHover, onLeave }: NavProps) => {
           onMouseLeave={onLeave}
           whileHover={{ scale: 1.1, rotate: 15 }}
           whileTap={{ scale: 0.9 }}
-          className="p-3 ml-2 rounded-full border-2 border-border text-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300"
+          className="p-2 ml-2 rounded-full border-2 border-border text-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300"
           aria-label="Toggle theme"
         >
           {isDark ? <Sun size={20} strokeWidth={2.5} /> : <Moon size={20} strokeWidth={2.5} />}

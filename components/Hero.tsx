@@ -1,7 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
-
-
+import { motion, AnimatePresence } from "framer-motion"; // Add AnimatePresence
 import { useState } from "react";
 
 interface HeroProps {
@@ -16,11 +14,12 @@ const ease = [0.16, 1, 0.3, 1] as const;
 type HoverState = "none" | "fullstack" | "creator";
 
 const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: HeroProps) => {
-  const [hovered, setHovered] = useState<HoverState>("fullstack");
+  // Initialize with "none" to start with the dark portrait (portrait-1)
+  const [hovered, setHovered] = useState<HoverState>("none");
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-start items-center px-8 md:px-12 pt-28 pb-0 mt-4  overflow-hidden">
-      {/* Intro text */}
+    <section className="relative min-h-screen flex flex-col justify-start items-center px-8 md:px-12 pt-28 pb-0 mt-4 overflow-hidden">
+      {/* Intro text - keeping it commented as in original */}
       {/* <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,6 +44,7 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
             onViewEnter();
           }}
           onMouseLeave={() => {
+            setHovered("none"); // Set back to none on leave
             onViewLeave();
           }}
         >
@@ -55,7 +55,7 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
               color: hovered === "fullstack" ? "hsl(var(--foreground))" : "transparent",
             }}
           >
-            Fullstack  Developer
+            Fullstack Developer
           </span>
         </motion.h1>
 
@@ -77,19 +77,43 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           </span>
         </motion.h1>
 
-        {/* Portrait image - MIDDLE layer, always z-20 */}
+        {/* Portrait images - MIDDLE layer, always z-20 */}
         <motion.div
           className="absolute inset-x-0 bottom-0 flex items-end justify-center pointer-events-none"
           style={{ zIndex: 20 }}
+          // Scale down slightly when hovered
           animate={{ scale: hovered !== "none" ? 0.97 : 1 }}
           transition={{ duration: 0.8, ease }}
         >
           <div className="relative w-[800px] sm:w-[900px] md:w-[1200px] lg:w-[1200px] shrink-0 flex justify-center items-end max-w-none">
-            <img
-              // src={hovered !== "none" ? portrait2 : portrait1}
-               src="/assets/portrait-1.png"
-              alt="Midhun NK Portrait"
+            
+            {/* Portrait 1 (Dark Mode) */}
+            <motion.img
+              src="/assets/portrait-1.png"
+              alt="Midhun NK Portrait (Dark)"
               className="w-full h-auto object-contain object-bottom grayscale transition-all duration-700"
+              style={{
+                position: 'absolute', // Stack on top
+                bottom: 0,
+              }}
+              // Visible only when NOT hovered (hovered === "none")
+              animate={{ opacity: hovered === "none" ? 1 : 0 }}
+              transition={{ duration: 0.5, ease }} // Smooth fade
+            />
+
+            {/* Portrait 2 (White Mode) */}
+            <motion.img
+              src="/assets/portrait-2.png" // Assumes path is correct
+              alt="Midhun NK Portrait (White)"
+              className="w-full h-auto object-contain object-bottom  transition-all duration-700"
+              style={{
+                position: 'relative', // Relative container to determine height
+                // The position relative is important here so the container expands.
+                // The absolute one (portrait-1) will overlay it.
+              }}
+              // Visible only when hovered
+              animate={{ opacity: hovered !== "none" ? 1 : 0 }}
+              transition={{ duration: 0.5, ease }} // Smooth fade
             />
           </div>
         </motion.div>
@@ -106,6 +130,7 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
             onViewEnter();
           }}
           onMouseLeave={() => {
+            setHovered("none"); // Set back to none on leave
             onViewLeave();
           }}
         >
