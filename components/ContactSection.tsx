@@ -2,16 +2,14 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Mail, MapPin } from "lucide-react";
 import {
-  Mail,
-  Phone,
-  MapPin,
-  GitBranch,
-  Link,
-  Play,
-  X,
-  Camera
-} from "lucide-react";
+  FaGithub,
+  FaLinkedin,
+  FaYoutube,
+  FaXTwitter,
+  FaInstagram
+} from "react-icons/fa6";
 
 interface ContactSectionProps {
   onPointerEnter: () => void;
@@ -21,23 +19,18 @@ interface ContactSectionProps {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const socials = [
-  { name: "GitHub", icon: GitBranch, url: "#" },
-  { name: "LinkedIn", icon: Link, url: "#" },
-  { name: "YouTube", icon: Play, url: "#" },
-  { name: "Twitter / X", icon: X, url: "#" },
-  { name: "Instagram", icon: Camera, url: "#" },
+  { name: "GitHub", icon: FaGithub, url: "#" },
+  { name: "LinkedIn", icon: FaLinkedin, url: "#" },
+  { name: "YouTube", icon: FaYoutube, url: "#" },
+  { name: "Twitter / X", icon: FaXTwitter, url: "#" },
+  { name: "Instagram", icon: FaInstagram, url: "#" },
 ];
 
 const contactInfo = [
   {
     icon: Mail,
     title: "MAIL US",
-    lines: ["hello@midhunnk.dev", "contact@midhunnk.dev"],
-  },
-  {
-    icon: Phone,
-    title: "CONTACT US",
-    lines: ["+91 123-456-7890", "+91 098-765-4321"],
+    lines: ["midhunnk2023@gmail.com"],
   },
   {
     icon: MapPin,
@@ -61,7 +54,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
       setSending(false);
       toast.success("Message sent! I'll get back to you soon.");
       setForm({ name: "", email: "", subject: "", message: "" });
-    ' '}, 1500);
+    }, 1500);
   };
 
   return (
@@ -75,7 +68,6 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
       >
         {/* Left - Contact Info + Socials */}
         <div className="col-span-12 md:col-span-5 flex flex-col">
-          {/* Increased text-[10px] to text-xs */}
           <span className="font-technical text-xs font-medium text-[#D4AF37] uppercase tracking-widest mb-8 block">
             Contact Info
           </span>
@@ -94,12 +86,10 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                   <item.icon className="w-5 h-5 text-muted-foreground" />
                 </div>
                 <div>
-                  {/* Increased text-[10px] to text-xs */}
                   <span className="font-technical text-xs font-medium text-muted-foreground uppercase tracking-widest block mb-1.5">
                     {item.title}
                   </span>
                   {item.lines.map((line) => (
-                    // Increased text-sm to text-base
                     <p key={line} className="font-technical text-base text-foreground/80">
                       {line}
                     </p>
@@ -117,7 +107,6 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
             transition={{ duration: 0.6, ease, delay: 0.4 }}
             className="mt-12"
           >
-            {/* Increased text-[10px] to text-xs */}
             <span className="font-technical text-xs font-medium text-muted-foreground uppercase tracking-widest block mb-5">
               Social Info
             </span>
@@ -149,8 +138,10 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
 
         {/* Right - Heading + Form */}
         <div className="col-span-12 md:col-span-7">
-          <div className="bg-card/30 border border-border rounded-2xl p-8 md:p-12">
-            <h2 className="font-display text-5xl md:text-7xl italic tracking-tighter mb-10">
+          {/* Reduced padding from p-8 md:p-12 to p-6 md:p-8 */}
+          <div className="bg-card/30 border border-border rounded-2xl p-6 md:p-8">
+            {/* Reduced text size from text-5xl md:text-7xl to text-4xl md:text-5xl and margin from mb-10 to mb-6 */}
+            <h2 className="font-display text-4xl md:text-5xl italic tracking-tighter mb-6">
               Let's work <span className="text-[#D4AF37]">together</span><span className="text-[#D4AF37]">.</span>
             </h2>
 
@@ -160,9 +151,9 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease, delay: 0.2 }}
-              className="space-y-6"
+              className="space-y-4" // Reduced spacing between form rows (was space-y-6)
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> {/* Reduced grid gap (was gap-6) */}
                 <div>
                   <input
                     type="text"
@@ -170,7 +161,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     maxLength={100}
                     placeholder="Name *"
-                    className="w-full bg-background/50 border border-border rounded-lg px-5 py-4 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
+                    className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
                   />
                 </div>
                 <div>
@@ -180,7 +171,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     maxLength={255}
                     placeholder="Email *"
-                    className="w-full bg-background/50 border border-border rounded-lg px-5 py-4 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
+                    className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
                   />
                 </div>
               </div>
@@ -191,7 +182,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                   onChange={(e) => setForm({ ...form, subject: e.target.value })}
                   maxLength={200}
                   placeholder="Your Subject *"
-                  className="w-full bg-background/50 border border-border rounded-lg px-5 py-4 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
+                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
                 />
               </div>
               <div>
@@ -199,9 +190,9 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   maxLength={1000}
-                  rows={4}
+                  rows={3} // Reduced from 4 rows to 3 rows
                   placeholder="Your Message *"
-                  className="w-full bg-background/50 border border-border rounded-lg px-5 py-4 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400 resize-none"
+                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400 resize-none"
                 />
               </div>
               <motion.button
@@ -211,7 +202,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                 onMouseLeave={onPointerLeave}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full font-technical text-[11px] uppercase tracking-[0.15em] px-10 py-4 bg-[#D4AF37] text-black rounded-lg transition-all duration-300 disabled:opacity-50 font-semibold shadow-lg shadow-[#D4AF37]/20"
+                className="w-full font-technical text-[11px] uppercase tracking-[0.15em] px-8 py-3 bg-[#D4AF37] text-black rounded-lg transition-all duration-300 disabled:opacity-50 font-semibold shadow-lg shadow-[#D4AF37]/20"
               >
                 {sending ? "Sending..." : "Send Message"}
               </motion.button>
