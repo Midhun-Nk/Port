@@ -1,5 +1,5 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useState } from "react";
 
 interface HeroProps {
@@ -16,28 +16,26 @@ type HoverState = "none" | "fullstack" | "creator";
 const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: HeroProps) => {
   const [hovered, setHovered] = useState<HoverState>("none");
 
+  // Track the vertical scroll position of the window
+  const { scrollY } = useScroll();
+  
+  // Transform the scroll position into horizontal movement
+  // As the user scrolls from 0px to 600px down, move text 1 to -300px (Left)
+  const textLeft = useTransform(scrollY, [0, 600], [0, -300]);
+  // As the user scrolls from 0px to 600px down, move text 2 to +300px (Right)
+  const textRight = useTransform(scrollY, [0, 600], [0, 300]);
+
   return (
     <section className="relative min-h-screen flex flex-col justify-start items-center px-8 md:px-12 pt-28 pb-0 mt-4 overflow-hidden">
-      {/* Intro text - keeping it commented as in original */}
-      {/* <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease, delay: 0.4 }}
-        className="font-display text-lg md:text-xl lg:text-2xl text-muted-foreground tracking-wide mb-8 relative z-40"
-      >
-        👋 , my name is Midhun NK and I am a freelance
-      </motion.p> */}
-
       {/* Main layered section */}
       <div className="relative w-full flex flex-col items-center justify-center flex-1 mt-8" style={{ minHeight: "60vh" }}>
         
         {/* === "Fullstack Developer" === */}
-        {/* Layer 1: Background (Solid when active, Outline otherwise) */}
+        {/* Layer 1: Background */}
         <motion.h1
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          /* CHANGED: top-[12%] for mobile, original top-[35%] for sm */
           className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] left-0 right-0 cursor-pointer z-10"
           onMouseEnter={() => {
             setHovered("fullstack");
@@ -47,9 +45,13 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
             setHovered("none");
             onViewLeave();
           }}
+          // CHANGED: Inject the `x: textLeft` transform into the style
+          style={{
+            x: textLeft,
+          }}
         >
           <span
-            className="transition-all duration-500 whitespace-nowrap"
+            className="transition-all duration-500 whitespace-nowrap block"
             style={{
               WebkitTextStroke: hovered === "fullstack" ? "0px" : "1.5px hsl(var(--foreground) / 0.3)",
               color: hovered === "fullstack" ? "hsl(var(--foreground))" : "transparent",
@@ -59,16 +61,19 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           </span>
         </motion.h1>
 
-        {/* Layer 2: Foreground (Always Outline, no pointer events) */}
+        {/* Layer 2: Foreground */}
         <motion.h1
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          /* CHANGED: top-[12%] for mobile, original top-[35%] for sm */
           className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] left-0 right-0 pointer-events-none z-30"
+          // CHANGED: Inject the `x: textLeft` transform into the style
+          style={{
+            x: textLeft,
+          }}
         >
           <span
-            className="transition-all duration-500 whitespace-nowrap"
+            className="transition-all duration-500 whitespace-nowrap block"
             style={{
               WebkitTextStroke: hovered === "fullstack" ? "1.5px hsl(var(--foreground))" : "1.5px hsl(var(--foreground) / 0.3)",
               color: "transparent",
@@ -92,10 +97,7 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
               src="/assets/portrait-1.png"
               alt="Midhun NK Portrait"
               className="w-full h-auto object-contain object-bottom transition-all duration-700"
-              style={{
-                position: 'absolute',
-                bottom: 0,
-              }}
+              style={{ position: 'absolute', bottom: 0 }}
               animate={{ opacity: hovered === "none" ? 1 : 0 }}
               transition={{ duration: 0.5, ease }}
             />
@@ -105,9 +107,7 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
               src="/assets/portrait-2.png"
               alt="Midhun NK Portrait Alternative"
               className="w-full h-auto object-contain object-bottom  transition-all duration-700"
-              style={{
-                position: 'relative',
-              }}
+              style={{ position: 'relative' }}
               animate={{ opacity: hovered !== "none" ? 1 : 0 }}
               transition={{ duration: 0.5, ease }}
             />
@@ -120,7 +120,6 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.65 }}
-          /* CHANGED: top-[24%] bottom-auto for mobile. sm:top-auto sm:bottom-[20%] to revert for larger screens */
           className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[24%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] left-0 right-0 cursor-pointer z-10"
           onMouseEnter={() => {
             setHovered("creator");
@@ -130,9 +129,13 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
             setHovered("none");
             onViewLeave();
           }}
+          // CHANGED: Inject the `x: textRight` transform into the style
+          style={{
+            x: textRight,
+          }}
         >
           <span
-            className="transition-all duration-500 whitespace-nowrap"
+            className="transition-all duration-500 whitespace-nowrap block"
             style={{
               WebkitTextStroke: hovered === "creator" ? "0px" : "1.5px hsl(var(--foreground) / 0.3)",
               color: hovered === "creator" ? "hsl(var(--foreground))" : "transparent",
@@ -147,11 +150,14 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.65 }}
-          /* CHANGED: top-[24%] bottom-auto for mobile. sm:top-auto sm:bottom-[20%] to revert for larger screens */
           className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[24%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] left-0 right-0 pointer-events-none z-30"
+          // CHANGED: Inject the `x: textRight` transform into the style
+          style={{
+            x: textRight,
+          }}
         >
           <span
-            className="transition-all duration-500 whitespace-nowrap"
+            className="transition-all duration-500 whitespace-nowrap block"
             style={{
               WebkitTextStroke: hovered === "creator" ? "1.5px hsl(var(--foreground))" : "1.5px hsl(var(--foreground) / 0.3)",
               color: "transparent",
