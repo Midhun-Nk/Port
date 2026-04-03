@@ -1,5 +1,5 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion"; // Add AnimatePresence
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 interface HeroProps {
@@ -14,7 +14,6 @@ const ease = [0.16, 1, 0.3, 1] as const;
 type HoverState = "none" | "fullstack" | "creator";
 
 const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: HeroProps) => {
-  // Initialize with "none" to start with the dark portrait (portrait-1)
   const [hovered, setHovered] = useState<HoverState>("none");
 
   return (
@@ -38,13 +37,14 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[68%] sm:top-[35%] md:top-[20%] left-0 right-0 cursor-pointer z-10"
+          /* CHANGED: top-[12%] for mobile, original top-[35%] for sm */
+          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] left-0 right-0 cursor-pointer z-10"
           onMouseEnter={() => {
             setHovered("fullstack");
             onViewEnter();
           }}
           onMouseLeave={() => {
-            setHovered("none"); // Set back to none on leave
+            setHovered("none");
             onViewLeave();
           }}
         >
@@ -64,12 +64,13 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[68%] sm:top-[35%] md:top-[20%] left-0 right-0 pointer-events-none z-30"
+          /* CHANGED: top-[12%] for mobile, original top-[35%] for sm */
+          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] left-0 right-0 pointer-events-none z-30"
         >
           <span
             className="transition-all duration-500 whitespace-nowrap"
             style={{
-              WebkitTextStroke: hovered === "fullstack" ? "1.5px white" : "1.5px rgba(255, 255, 255, 0.3)",
+              WebkitTextStroke: hovered === "fullstack" ? "1.5px hsl(var(--foreground))" : "1.5px hsl(var(--foreground) / 0.3)",
               color: "transparent",
             }}
           >
@@ -81,39 +82,34 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
         <motion.div
           className="absolute inset-x-0 bottom-0 flex items-end justify-center pointer-events-none"
           style={{ zIndex: 20 }}
-          // Scale down slightly when hovered
           animate={{ scale: hovered !== "none" ? 0.97 : 1 }}
           transition={{ duration: 0.8, ease }}
         >
-          <div className="relative w-[800px] sm:w-[900px] md:w-[1200px] lg:w-[1200px] shrink-0 flex justify-center items-end max-w-none">
+          <div className="relative w-[950px] sm:w-[950px] md:w-[1200px] lg:w-[1200px] shrink-0 flex justify-center items-end max-w-none">
             
-            {/* Portrait 1 (Dark Mode) */}
+            {/* Portrait 1 */}
             <motion.img
               src="/assets/portrait-1.png"
-              alt="Midhun NK Portrait (Dark)"
-              className="w-full h-auto object-contain object-bottom grayscale transition-all duration-700"
+              alt="Midhun NK Portrait"
+              className="w-full h-auto object-contain object-bottom transition-all duration-700"
               style={{
-                position: 'absolute', // Stack on top
+                position: 'absolute',
                 bottom: 0,
               }}
-              // Visible only when NOT hovered (hovered === "none")
               animate={{ opacity: hovered === "none" ? 1 : 0 }}
-              transition={{ duration: 0.5, ease }} // Smooth fade
+              transition={{ duration: 0.5, ease }}
             />
 
-            {/* Portrait 2 (White Mode) */}
+            {/* Portrait 2 - Alternative */}
             <motion.img
-              src="/assets/portrait-2.png" // Assumes path is correct
-              alt="Midhun NK Portrait (White)"
+              src="/assets/portrait-2.png"
+              alt="Midhun NK Portrait Alternative"
               className="w-full h-auto object-contain object-bottom  transition-all duration-700"
               style={{
-                position: 'relative', // Relative container to determine height
-                // The position relative is important here so the container expands.
-                // The absolute one (portrait-1) will overlay it.
+                position: 'relative',
               }}
-              // Visible only when hovered
               animate={{ opacity: hovered !== "none" ? 1 : 0 }}
-              transition={{ duration: 0.5, ease }} // Smooth fade
+              transition={{ duration: 0.5, ease }}
             />
           </div>
         </motion.div>
@@ -124,13 +120,14 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.65 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute bottom-[15%] sm:bottom-[20%] md:bottom-[25%] left-0 right-0 cursor-pointer z-10"
+          /* CHANGED: top-[24%] bottom-auto for mobile. sm:top-auto sm:bottom-[20%] to revert for larger screens */
+          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[24%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] left-0 right-0 cursor-pointer z-10"
           onMouseEnter={() => {
             setHovered("creator");
             onViewEnter();
           }}
           onMouseLeave={() => {
-            setHovered("none"); // Set back to none on leave
+            setHovered("none");
             onViewLeave();
           }}
         >
@@ -150,12 +147,13 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.65 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute bottom-[15%] sm:bottom-[20%] md:bottom-[25%] left-0 right-0 pointer-events-none z-30"
+          /* CHANGED: top-[24%] bottom-auto for mobile. sm:top-auto sm:bottom-[20%] to revert for larger screens */
+          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[24%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] left-0 right-0 pointer-events-none z-30"
         >
           <span
             className="transition-all duration-500 whitespace-nowrap"
             style={{
-              WebkitTextStroke: hovered === "creator" ? "1.5px white" : "1.5px rgba(255, 255, 255, 0.3)",
+              WebkitTextStroke: hovered === "creator" ? "1.5px hsl(var(--foreground))" : "1.5px hsl(var(--foreground) / 0.3)",
               color: "transparent",
             }}
           >
