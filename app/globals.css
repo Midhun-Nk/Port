@@ -131,3 +131,24 @@
     color: transparent;
   }
 }
+
+/* Blog prose styles */
+.prose-blog h1, .prose-blog h2, .prose-blog h3 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  color: hsl(var(--foreground));
+  margin: 2rem 0 1rem;
+  line-height: 1;
+}
+.prose-blog h1 { font-size: 2.5rem; }
+.prose-blog h2 { font-size: 2rem; border-bottom: 1px solid hsl(var(--border)); padding-bottom: 0.5rem; }
+.prose-blog h3 { font-size: 1.5rem; }
+.prose-blog p { color: hsl(var(--muted-foreground)); line-height: 1.8; margin: 1rem 0; }
+.prose-blog strong { color: hsl(var(--foreground)); }
+.prose-blog em { color: hsl(var(--primary)); }
+.prose-blog ul { list-style: none; padding: 0; }
+.prose-blog ul li { padding: 0.3rem 0 0.3rem 1.5rem; position: relative; color: hsl(var(--muted-foreground)); }
+.prose-blog ul li::before { content: "—"; position: absolute; left: 0; color: hsl(var(--primary)); }
+.prose-blog pre { background: hsl(var(--secondary)); border: 1px solid hsl(var(--border)); padding: 1.5rem; overflow-x: auto; margin: 1.5rem 0; }
+.prose-blog code { color: hsl(var(--primary)); font-size: 0.875em; }
