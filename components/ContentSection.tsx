@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Camera, Users, Heart, MessageCircle, Play, TrendingUp } from "lucide-react";
+import { Camera, Users, Heart, Play, TrendingUp } from "lucide-react";
 
 interface ContentSectionProps {
   onPointerEnter: () => void;
@@ -10,36 +10,41 @@ interface ContentSectionProps {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const stats = [
-  { icon: Users, value: "10K+", label: "Followers" },
+  { icon: Users, value: "13K+", label: "Followers" },
   { icon: Heart, value: "50K+", label: "Likes" },
   { icon: Play, value: "200+", label: "Reels" },
   { icon: TrendingUp, value: "500K+", label: "Reach" },
 ];
 
+// UPDATE THESE: Add your actual reel titles, stats, and local thumbnail paths here
 const reels = [
   {
-    title: "5 VS Code Shortcuts You Need",
+    title: "Replace with your first reel title", 
     views: "12.4K",
     likes: "1.2K",
-    gradient: "from-rose-500/20 to-orange-500/20",
+    thumbnail: "/assets/reel-1.jpg", // Save your thumbnail image in public/assets/
+    url: "https://www.instagram.com/reel/DV7YhzxEjHq/?igsh=cG45ZGd0NDNiZm9x",
   },
   {
-    title: "React Hooks Explained in 60s",
+    title: "Replace with your second reel title",
     views: "24.1K",
     likes: "3.4K",
-    gradient: "from-blue-500/20 to-cyan-500/20",
+    thumbnail: "/assets/reel-2.jpg",
+    url: "https://www.instagram.com/reel/DU4dwYZjBLk/?igsh=MWtnMnFxdXd1Z2o5Zg==",
   },
   {
-    title: "Deploy Next.js in 30 Seconds",
+    title: "Replace with your third reel title",
     views: "8.7K",
     likes: "980",
-    gradient: "from-emerald-500/20 to-teal-500/20",
+    thumbnail: "/assets/reel-3.jpg",
+    url: "https://www.instagram.com/reel/DUKGxockiHd/?igsh=MW0ydG4wbHJlb3Q0bg==",
   },
   {
-    title: "Git Commands Every Dev Needs",
+    title: "Replace with your fourth reel title",
     views: "18.3K",
     likes: "2.1K",
-    gradient: "from-amber-500/20 to-yellow-500/20",
+    thumbnail: "/assets/reel-4.jpg",
+    url: "https://www.instagram.com/reel/DVNDbgKEtTA/?igsh=ZmZ0djRtb25jcWRx",
   },
 ];
 
@@ -50,7 +55,7 @@ const topics = [
 
 const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps) => {
   return (
-    <section id="content" className="px-8 md:px-12 py-32 relative z-10">
+    <section id="content" className="px-8 md:px-12 py-8 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -91,14 +96,16 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
             className="col-span-12 md:col-span-4 border border-border rounded-2xl p-8 bg-card/30 hover:border-primary/40 transition-colors duration-500"
           >
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500 via-rose-500 to-purple-600 p-[2px]">
-                <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                  <span className="font-display text-xl italic text-foreground">M</span>
-                </div>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500 via-rose-500 to-purple-600 p-[2px] shrink-0">
+                <img 
+                  src="/assets/profile-icon.jpeg" 
+                  alt="mike.devlogs" 
+                  className="w-full h-full rounded-full object-cover border-2 border-background"
+                />
               </div>
               <div>
                 <h3 className="font-display text-lg italic tracking-tight text-foreground">
-                  @midhunnk.dev
+                  @mike.devlogs
                 </h3>
                 <p className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest">
                   Software Engineer Tips
@@ -117,7 +124,7 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
             </p>
 
             <motion.a
-              href="https://instagram.com/midhunnk.dev"
+              href="https://instagram.com/mike.devlogs"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
@@ -161,10 +168,12 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
           <span className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest block mb-6">
             Popular Reels
           </span>
-          {/* UPDATED CONTAINER: Flex on mobile for horizontal scroll, Grid on desktop */}
           <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none md:grid-cols-2 lg:grid-cols-4 gap-4 pb-8 md:pb-0 -mx-8 px-8 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {reels.map((reel, i) => (
-              <motion.div
+              <motion.a
+                href={reel.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 key={reel.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -173,19 +182,28 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
                 whileHover={{ y: -6, scale: 1.02 }}
                 onMouseEnter={onPointerEnter}
                 onMouseLeave={onPointerLeave}
-                /* UPDATED ITEM: Added w-[85vw] and snap-center for mobile swipe snapping */
-                className="w-[85vw] sm:w-[300px] md:w-auto shrink-0 snap-center md:snap-align-none group border border-border rounded-xl overflow-hidden bg-card/20 hover:border-primary/30 transition-all duration-500 cursor-pointer flex flex-col"
+                className="w-[85vw] sm:w-[300px] md:w-auto shrink-0 snap-center md:snap-align-none group border border-border rounded-xl overflow-hidden bg-card/20 hover:border-primary/30 transition-all duration-500 cursor-pointer flex flex-col block"
               >
-                <div className={`h-40 bg-gradient-to-br ${reel.gradient} flex items-center justify-center relative shrink-0`}>
+                {/* REPLACED GRADIENT WITH IMAGE THUMBNAIL */}
+                <div className="h-40 relative flex items-center justify-center shrink-0 bg-muted overflow-hidden">
+                  <img 
+                    src={reel.thumbnail} 
+                    alt={reel.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Overlay for contrast so the play button stands out */}
+                  <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition-colors duration-500" />
+                  
                   <motion.div
-                    className="w-12 h-12 rounded-full bg-foreground/10 backdrop-blur-sm flex items-center justify-center border border-foreground/20"
+                    className="w-12 h-12 relative z-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 text-white"
                     whileHover={{ scale: 1.15 }}
                   >
-                    <Play className="w-5 h-5 text-foreground ml-0.5" />
+                    <Play className="w-5 h-5 ml-0.5 fill-white" />
                   </motion.div>
                 </div>
+
                 <div className="p-4 flex-grow flex flex-col justify-between">
-                  <h4 className="font-technical text-xs text-foreground font-medium mb-3 leading-relaxed">
+                  <h4 className="font-technical text-xs text-foreground font-medium mb-3 leading-relaxed line-clamp-2">
                     {reel.title}
                   </h4>
                   <div className="flex items-center gap-4">
@@ -197,7 +215,7 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </motion.a>
             ))}
           </div>
         </div>

@@ -29,15 +29,16 @@ const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: Hero
   const textLeft = useTransform(scrollY, [0, 600], [0, -300]);
   const textRight = useTransform(scrollY, [0, 600], [0, 300]);
   const currentActive = isHovered ?? active;
-
-  const getTextStyle = (which: ActiveState) => ({
+const getTextStyle = (which: ActiveState) => ({
     WebkitTextStroke: currentActive === which ? "0px" : "1.5px hsl(var(--foreground) / 0.25)",
-    color: currentActive === which ? "hsl(var(--foreground))" : "transparent",
+    // Changed --foreground to --primary for the active text fill
+    color: currentActive === which ? "hsl(var(--primary))" : "transparent",
     transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
   });
 
   const getStrokeStyle = (which: ActiveState) => ({
-    WebkitTextStroke: currentActive === which ? "1.5px hsl(var(--foreground))" : "1.5px hsl(var(--foreground) / 0.25)",
+    // Changed --foreground to --primary for the active text stroke
+    WebkitTextStroke: currentActive === which ? "1.5px hsl(var(--primary))" : "1.5px hsl(var(--foreground) / 0.25)",
     color: "transparent",
     transition: "all 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
   });

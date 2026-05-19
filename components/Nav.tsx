@@ -15,9 +15,13 @@ interface NavProps {
 const sections = [
   { label: "About", hash: "#about", path: "/about" },
   { label: "Content", hash: "#content", path: "/content" },
-  { label: "Freelance", hash: "#freelance", path: "/freelance" },
-  { label: "Stack", hash: "#stack", path: "/stack" },
-  { label: "Projects", hash: "#projects", path: "/projects" },
+  { 
+    label: "Works", 
+    hash: "#freelance", 
+    path: "/freelance",
+    activeHashes: ["#freelance", "#stack", "#projects"],
+    activePaths: ["/freelance", "/stack", "/projects"]
+  },
   { label: "Certificates", hash: "#certificates", path: "/certificates" },
   { label: "Blog", hash: "#blog", path: "/blog" },
   { label: "Contact", hash: "#contact", path: "/contact" },
@@ -44,9 +48,12 @@ const Nav = ({ onHover, onLeave }: NavProps) => {
       },
       { rootMargin: "-40% 0px -55% 0px" }
     );
-    sections.forEach(({ hash }) => {
-      const el = document.querySelector(hash);
-      if (el) observer.observe(el);
+    sections.forEach((item) => {
+      const hashesToObserve = item.activeHashes || [item.hash];
+      hashesToObserve.forEach((h) => {
+        const el = document.querySelector(h);
+        if (el) observer.observe(el);
+      });
     });
     return () => observer.disconnect();
   }, [pathname]);
@@ -82,7 +89,9 @@ const Nav = ({ onHover, onLeave }: NavProps) => {
 
       <div className="hidden md:flex items-center gap-5 xl:gap-6">
         {sections.map((item) => {
-          const isActive = pathname === "/" ? activeHash === item.hash : pathname.startsWith(item.path);
+          const isActive = pathname === "/" 
+            ? (item.activeHashes ? item.activeHashes.includes(activeHash) : activeHash === item.hash)
+            : (item.activePaths ? item.activePaths.some(p => pathname.startsWith(p)) : pathname.startsWith(item.path));
           return (
             <Link
               key={item.label}
