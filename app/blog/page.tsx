@@ -67,9 +67,6 @@ export default function BlogPage() {
     setFiltered(result);
   }, [search, activeTopic, blogs]);
 
-  const featured = filtered.find((b) => b.featured);
-  const rest = filtered.filter((b) => !b.featured || filtered.indexOf(b) > 0);
-
   return (
     <div className="min-h-screen px-8 md:px-12 pt-28 pb-20">
       {/* Header */}
@@ -138,62 +135,10 @@ export default function BlogPage() {
         </div>
       )}
 
-      {/* Featured */}
-      {featured && (
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.2 }}
-          className="mb-12"
-        >
-          <span className="font-technical text-[10px] text-primary uppercase tracking-widest mb-4 block">Featured</span>
-          <Link href={`/blog/${featured.slug}`}>
-            <motion.div
-              whileHover={{ x: 8 }}
-              className="group border border-border hover:border-primary/40 transition-colors duration-300 overflow-hidden"
-            >
-              <div className="grid md:grid-cols-2">
-                {featured.cover_image && (
-                  <div className="h-64 md:h-auto overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={featured.cover_image}
-                      alt={featured.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                )}
-                <div className={`p-8 md:p-10 flex flex-col justify-center ${!featured.cover_image ? "col-span-2" : ""}`}>
-                  <div className="flex gap-2 mb-4 flex-wrap">
-                    <span className="font-technical text-[9px] uppercase tracking-widest text-primary border border-primary/30 px-2 py-1">
-                      {featured.topic}
-                    </span>
-                    {featured.subtopic && (
-                      <span className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-1">
-                        {featured.subtopic}
-                      </span>
-                    )}
-                  </div>
-                  <h2 className="font-display text-4xl md:text-5xl italic tracking-tighter group-hover:text-primary transition-colors duration-300">
-                    {featured.title}
-                  </h2>
-                  <p className="font-technical text-sm text-muted-foreground mt-4 leading-relaxed line-clamp-3">{featured.excerpt}</p>
-                  <div className="flex items-center gap-4 mt-6 font-technical text-[10px] text-muted-foreground uppercase tracking-widest">
-                    {featured.read_time && <span className="flex items-center gap-1"><Clock size={10} />{featured.read_time} min</span>}
-                    <span className="flex items-center gap-1"><Eye size={10} />{featured.views}</span>
-                    <span>{new Date(featured.created_at).toLocaleDateString()}</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </Link>
-        </motion.div>
-      )}
-
       {/* Blog Grid */}
       <AnimatePresence mode="popLayout">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rest.map((blog, i) => (
+          {filtered.map((blog, i) => (
             <motion.div
               key={blog.id}
               initial={{ opacity: 0, y: 20 }}
@@ -201,14 +146,15 @@ export default function BlogPage() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, ease, delay: i * 0.05 }}
               layout
+              className="flex"
             >
-              <Link href={`/blog/${blog.slug}`}>
+              <Link href={`/blog/${blog.slug}`} className="flex flex-col flex-1 w-full">
                 <motion.div
                   whileHover={{ y: -4 }}
-                  className="group border border-border hover:border-primary/40 transition-all duration-300 h-full flex flex-col overflow-hidden bg-background/50 backdrop-blur-sm"
+                  className="group border border-border hover:border-primary/40 transition-all duration-300 flex flex-col overflow-hidden bg-background/50 backdrop-blur-sm flex-1"
                 >
                   {blog.cover_image && (
-                    <div className="h-48 overflow-hidden">
+                    <div className="h-48 overflow-hidden shrink-0">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={blog.cover_image}
@@ -218,13 +164,17 @@ export default function BlogPage() {
                     </div>
                   )}
                   <div className="p-6 flex flex-col flex-1">
-                    <div className="flex gap-2 mb-3 flex-wrap">
-                      <span className="font-technical text-[9px] uppercase tracking-widest text-primary/80">{blog.topic}</span>
+                    <div className="flex gap-2 mb-4 flex-wrap">
+                      <span className="font-technical text-[9px] uppercase tracking-widest text-primary border border-primary/30 px-2 py-1">
+                        {blog.topic}
+                      </span>
                       {blog.subtopic && (
-                        <span className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">/ {blog.subtopic}</span>
+                        <span className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground border border-border px-2 py-1">
+                          {blog.subtopic}
+                        </span>
                       )}
                     </div>
-                    <h3 className="font-display text-2xl italic tracking-tight group-hover:text-primary transition-colors duration-300 flex-1">
+                    <h3 className="font-display text-2xl italic tracking-tight group-hover:text-primary transition-colors duration-300">
                       {blog.title}
                     </h3>
                     {blog.excerpt && (
@@ -232,15 +182,15 @@ export default function BlogPage() {
                     )}
                     {blog.tags?.length > 0 && (
                       <div className="flex gap-1.5 flex-wrap mt-4">
-                        {blog.tags.slice(0, 3).map((tag) => (
+                        {blog.tags.slice(0, 5).map((tag) => (
                           <span key={tag} className="font-technical text-[9px] text-muted-foreground border border-border/60 px-2 py-0.5 flex items-center gap-1">
                             <Tag size={8} />{tag}
                           </span>
                         ))}
                       </div>
                     )}
-                    <div className="flex items-center gap-3 mt-4 pt-4 border-t border-border font-technical text-[9px] text-muted-foreground uppercase tracking-widest">
-                      {blog.read_time && <span className="flex items-center gap-1"><Clock size={9} />{blog.read_time}m</span>}
+                    <div className="flex items-center gap-3 mt-auto pt-4 border-t border-border font-technical text-[9px] text-muted-foreground uppercase tracking-widest">
+                      {blog.read_time && <span className="flex items-center gap-1"><Clock size={9} />{blog.read_time} min</span>}
                       <span className="flex items-center gap-1"><Eye size={9} />{blog.views}</span>
                       <span className="ml-auto">{new Date(blog.created_at).toLocaleDateString()}</span>
                     </div>

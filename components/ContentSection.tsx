@@ -221,7 +221,7 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
         </div>
 
         {/* Topics */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -247,7 +247,7 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
               </motion.span>
             ))}
           </div>
-        </motion.div>
+        </motion.div> */}
       </motion.div>
     </section>
   );

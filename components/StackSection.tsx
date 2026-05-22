@@ -69,7 +69,7 @@ const StackSection = ({ onPointerEnter, onPointerLeave }: StackSectionProps) => 
           transition={{ duration: 0.3, ease }}
           onMouseEnter={onPointerEnter}
           onMouseLeave={onPointerLeave}
-          className="flex items-center gap-2.5 font-technical text-[11px] uppercase tracking-[0.12em] px-5 py-3 border border-border text-muted-foreground hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-500 rounded-sm"
+          className="flex items-center gap-2.5 font-technical text-[11px] uppercase tracking-[0.12em] px-5 py-3 border border-primary/40 bg-primary/[0.02] text-primary/85 hover:border-primary hover:text-primary hover:bg-primary/[0.08] hover:shadow-[0_0_15px_hsl(var(--primary)/0.15)] transition-all duration-500 rounded-sm"
         >
           <img
             src={tool.icon}

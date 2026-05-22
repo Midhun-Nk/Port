@@ -5,6 +5,16 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholde
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+export interface Subtopic {
+  title?: string;
+  image?: string;
+  details?: string;
+  unordered_list?: string[];
+  ordered_list?: string[];
+  video_url?: string;
+  web_url?: string;
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -19,6 +29,7 @@ export type Database = {
           content: string;
           topic: string;
           subtopic: string | null;
+          subtopics: Subtopic[] | null;
           tags: string[];
           cover_image: string | null;
           youtube_url: string | null;

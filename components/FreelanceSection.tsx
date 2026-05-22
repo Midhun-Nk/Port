@@ -90,7 +90,7 @@ const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionPr
   };
 
   return (
-    <section id="freelance" className="px-8 md:px-12 py-24 relative z-10">
+    <section id="freelance" className="px-8 md:px-12 py-8 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -149,22 +149,22 @@ const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionPr
               onMouseLeave={onPointerLeave}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.3, ease }}
-              className="group block border border-border hover:border-primary/50 bg-background/50 backdrop-blur-sm overflow-hidden transition-all duration-300 h-full rounded-lg"
+              className="group block border border-primary/50 hover:border-primary hover:shadow-[0_0_25px_hsl(var(--primary)/0.15)] bg-background/50 hover:bg-primary/[0.02] backdrop-blur-sm overflow-hidden transition-all duration-300 h-full rounded-lg"
             >
               {/* Image */}
-              <div className="overflow-hidden relative w-full">
+              <div className="overflow-hidden relative w-full aspect-video">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={project.image}
                   alt={project.project}
-                  className="w-full h-auto block scale-105 group-hover:scale-100 transition-transform duration-700"
+                  className="w-full h-full object-cover block scale-95 group-hover:scale-100 transition-transform duration-700"
                 />
                 
                 {/* REMOVED GRADIENT DIV FROM HERE
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" /> 
                 */}
 
-                <div className="absolute top-4 right-4 p-2 border border-border bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute top-4 right-4 p-2 border border-primary/30 group-hover:border-primary/70 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300">
                   <ArrowUpRight size={14} className="text-primary" />
                 </div>
                 <div className="absolute bottom-4 left-6">
@@ -194,14 +194,14 @@ const FreelanceSection = ({ onPointerEnter, onPointerLeave }: FreelanceSectionPr
                     return (
                       <span
                         key={t}
-                        className="flex items-center gap-1.5 font-technical text-[9px] uppercase tracking-widest text-muted-foreground px-2 py-1 border border-border/60 group-hover:border-primary/20 group-hover:text-foreground transition-colors duration-300"
+                        className="flex items-center gap-1.5 font-technical text-[9px] uppercase tracking-widest text-primary/80 px-2 py-1 border border-primary/30 group-hover:border-primary/50 group-hover:text-primary bg-primary/[0.01] transition-all duration-300"
                       >
                         {iconPath && (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
                             src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconPath}`}
                             alt={t}
-                            className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity"
+                            className="w-3.5 h-3.5 opacity-80 group-hover:opacity-100 transition-opacity"
                           />
                         )}
                         {t}

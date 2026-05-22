@@ -17,6 +17,7 @@ export default function EditBlogPage() {
           ...data,
           tags: Array.isArray(data.tags) ? data.tags.join(", ") : "",
           subtopic: data.subtopic ?? "",
+          subtopics: data.subtopics ?? [],
           youtube_url: data.youtube_url ?? "",
           cover_image: data.cover_image ?? "",
           og_image: data.og_image ?? "",

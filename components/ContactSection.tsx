@@ -68,7 +68,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
       >
         {/* Left - Contact Info + Socials */}
         <div className="col-span-12 md:col-span-5 flex flex-col">
-          <span className="font-technical text-xs font-medium text-[#D4AF37] uppercase tracking-widest mb-8 block">
+          <span className="font-technical text-[10px] text-primary uppercase tracking-widest mb-8 block">
             Contact Info
           </span>
 
@@ -86,7 +86,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                   <item.icon className="w-5 h-5 text-muted-foreground" />
                 </div>
                 <div>
-                  <span className="font-technical text-xs font-medium text-muted-foreground uppercase tracking-widest block mb-1.5">
+                  <span className="font-technical text-[10px] text-primary/60 uppercase tracking-widest block mb-1.5">
                     {item.title}
                   </span>
                   {item.lines.map((line) => (
@@ -107,7 +107,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
             transition={{ duration: 0.6, ease, delay: 0.4 }}
             className="mt-12"
           >
-            <span className="font-technical text-xs font-medium text-muted-foreground uppercase tracking-widest block mb-5">
+            <span className="font-technical text-[10px] text-primary/60 uppercase tracking-widest block mb-5">
               Social Info
             </span>
             <div className="flex gap-3">
@@ -124,10 +124,10 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                     whileHover={{ y: -2 }}
                     onMouseEnter={onPointerEnter}
                     onMouseLeave={onPointerLeave}
-                    className="relative overflow-hidden group w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:border-[#D4AF37] transition-colors duration-400"
+                    className="relative overflow-hidden group w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:border-primary transition-colors duration-400"
                     title={social.name}
                   >
-                    <span className="absolute inset-0 w-full h-full bg-[#D4AF37] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-0" />
+                    <span className="absolute inset-0 w-full h-full bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-0" />
                     <IconComponent className="w-4 h-4 relative z-10 group-hover:text-black transition-colors duration-500" />
                   </motion.a>
                 );
@@ -142,7 +142,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
           <div className="bg-card/30 border border-border rounded-2xl p-6 md:p-8">
             {/* Reduced text size from text-5xl md:text-7xl to text-4xl md:text-5xl and margin from mb-10 to mb-6 */}
             <h2 className="font-display text-4xl md:text-5xl italic tracking-tighter mb-6">
-              Let's work <span className="text-[#D4AF37]">together</span><span className="text-[#D4AF37]">.</span>
+              Let's work <span className="text-primary">together</span><span className="text-primary">.</span>
             </h2>
 
             <motion.form
@@ -161,7 +161,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     maxLength={100}
                     placeholder="Name *"
-                    className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
+                    className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-400"
                   />
                 </div>
                 <div>
@@ -171,7 +171,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     maxLength={255}
                     placeholder="Email *"
-                    className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
+                    className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-400"
                   />
                 </div>
               </div>
@@ -182,7 +182,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                   onChange={(e) => setForm({ ...form, subject: e.target.value })}
                   maxLength={200}
                   placeholder="Your Subject *"
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400"
+                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-400"
                 />
               </div>
               <div>
@@ -192,7 +192,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                   maxLength={1000}
                   rows={3} // Reduced from 4 rows to 3 rows
                   placeholder="Your Message *"
-                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/50 transition-all duration-400 resize-none"
+                  className="w-full bg-background/50 border border-border rounded-lg px-4 py-3 font-technical text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all duration-400 resize-none"
                 />
               </div>
               <motion.button
@@ -202,7 +202,7 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
                 onMouseLeave={onPointerLeave}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full font-technical text-[11px] uppercase tracking-[0.15em] px-8 py-3 bg-[#D4AF37] text-black rounded-lg transition-all duration-300 disabled:opacity-50 font-semibold shadow-lg shadow-[#D4AF37]/20"
+                className="w-full font-technical text-[11px] uppercase tracking-[0.15em] px-8 py-3 bg-primary text-black rounded-lg transition-all duration-300 disabled:opacity-50 font-semibold shadow-lg shadow-primary/20"
               >
                 {sending ? "Sending..." : "Send Message"}
               </motion.button>

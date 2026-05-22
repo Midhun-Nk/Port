@@ -6,6 +6,7 @@ import { Save, Eye, EyeOff, Star, StarOff, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
+import ImageUpload from "./ImageUpload";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -13,12 +14,12 @@ interface BlogData {
   id?: string;
   title: string;
   slug: string;
-  excerpt: string;
-  content: string;
+  excerpt: string; // Summary
+  content: string; // Optional full content
   topic: string;
-  subtopic: string;
+  subtopic: string; // Category subtopic
   tags: string;
-  cover_image: string;
+  cover_image: string; // Banner Image
   youtube_url: string;
   seo_title: string;
   seo_description: string;
@@ -28,6 +29,7 @@ interface BlogData {
   featured: boolean;
   read_time: string;
   author: string;
+  subtopics?: any[] | null;
 }
 
 interface Props {
@@ -53,6 +55,7 @@ const defaultData: BlogData = {
   featured: false,
   read_time: "",
   author: "Midhun NK",
+  subtopics: [],
 };
 
 function slugify(text: string) {
@@ -93,8 +96,32 @@ const Field = ({
   </div>
 );
 
+interface EditorSubtopic {
+  title: string;
+  image: string;
+  details: string;
+  unordered_list_raw: string;
+  ordered_list_raw: string;
+  video_url: string;
+  web_url: string;
+}
+
 export default function BlogEditor({ initialData, isEdit = false }: Props) {
   const [data, setData] = useState<BlogData>({ ...defaultData, ...initialData });
+  const [subtopics, setSubtopics] = useState<EditorSubtopic[]>(() => {
+    if (initialData?.subtopics && Array.isArray(initialData.subtopics)) {
+      return (initialData.subtopics as any[]).map((sub: any) => ({
+        title: sub.title || "",
+        image: sub.image || "",
+        details: sub.details || "",
+        unordered_list_raw: Array.isArray(sub.unordered_list) ? sub.unordered_list.join("\n") : "",
+        ordered_list_raw: Array.isArray(sub.ordered_list) ? sub.ordered_list.join("\n") : "",
+        video_url: sub.video_url || "",
+        web_url: sub.web_url || "",
+      }));
+    }
+    return [];
+  });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -116,9 +143,47 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
     set("slug")(slugify(v));
   };
 
+  const handleAddSubtopic = () => {
+    setSubtopics((prev) => [
+      ...prev,
+      {
+        title: "",
+        image: "",
+        details: "",
+        unordered_list_raw: "",
+        ordered_list_raw: "",
+        video_url: "",
+        web_url: "",
+      },
+    ]);
+  };
+
+  const handleRemoveSubtopic = (index: number) => {
+    setSubtopics((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleMoveSubtopic = (index: number, direction: "up" | "down") => {
+    setSubtopics((prev) => {
+      const copy = [...prev];
+      const target = direction === "up" ? index - 1 : index + 1;
+      if (target >= 0 && target < copy.length) {
+        const temp = copy[index];
+        copy[index] = copy[target];
+        copy[target] = temp;
+      }
+      return copy;
+    });
+  };
+
+  const handleSubtopicFieldChange = (index: number, field: keyof EditorSubtopic, value: string) => {
+    setSubtopics((prev) =>
+      prev.map((sub, i) => (i === index ? { ...sub, [field]: value } : sub))
+    );
+  };
+
   const handleSave = async (publish?: boolean) => {
-    if (!data.title || !data.slug || !data.content) {
-      setError("Title, slug, and content are required.");
+    if (!data.title || !data.slug) {
+      setError("Title and slug are required.");
       return;
     }
     setSaving(true);
@@ -128,7 +193,7 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
       title: data.title,
       slug: data.slug,
       excerpt: data.excerpt,
-      content: data.content,
+      content: data.content || "",
       topic: data.topic,
       subtopic: data.subtopic || null,
       tags: data.tags ? data.tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
@@ -142,6 +207,19 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
       featured: data.featured,
       read_time: data.read_time ? Number(data.read_time) : null,
       author: data.author,
+      subtopics: subtopics.map((sub) => ({
+        title: sub.title || null,
+        image: sub.image || null,
+        details: sub.details || null,
+        unordered_list: sub.unordered_list_raw
+          ? sub.unordered_list_raw.split("\n").map((item) => item.trim()).filter(Boolean)
+          : null,
+        ordered_list: sub.ordered_list_raw
+          ? sub.ordered_list_raw.split("\n").map((item) => item.trim()).filter(Boolean)
+          : null,
+        video_url: sub.video_url || null,
+        web_url: sub.web_url || null,
+      })),
     };
 
     try {
@@ -228,22 +306,163 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
         <Section title="Core Content">
           <Field label="Title *" value={data.title} onChange={handleTitleChange} placeholder="My Amazing Blog Post" />
           <Field label="Slug *" value={data.slug} onChange={handleSlugChange} placeholder="my-amazing-blog-post" />
-          <Field label="Excerpt / Summary" value={data.excerpt} onChange={set("excerpt")} rows={3} placeholder="A brief description shown in listings..." />
-          <Field label="Full Content (Markdown or HTML) *" value={data.content} onChange={set("content")} rows={16} placeholder="Write your full blog post content here. Supports Markdown..." />
+          <Field label="Summary" value={data.excerpt} onChange={set("excerpt")} rows={3} placeholder="A brief description shown in listings..." />
+          <Field label="Full Content (Markdown or HTML) - Optional" value={data.content} onChange={set("content")} rows={10} placeholder="Write optional introductory content here..." />
         </Section>
+
+        {/* Subtopics */}
+        <div className="border border-border p-6 bg-background/50 space-y-6">
+          <div className="flex justify-between items-center border-b border-border pb-3">
+            <h3 className="font-technical text-[10px] uppercase tracking-widest text-primary">Subtopics / Content Sections</h3>
+            <button
+              type="button"
+              onClick={handleAddSubtopic}
+              className="px-3 py-1.5 border border-primary/30 text-primary hover:bg-primary/10 font-technical text-[9px] uppercase tracking-widest transition-all"
+            >
+              + Add Subtopic
+            </button>
+          </div>
+
+          {subtopics.length === 0 ? (
+            <p className="font-technical text-xs text-muted-foreground text-center py-8 border border-dashed border-border/60">
+              No subtopics added yet. Click "+ Add Subtopic" to add sections to your post.
+            </p>
+          ) : (
+            <div className="space-y-6">
+              {subtopics.map((sub, idx) => (
+                <div key={idx} className="border border-border p-5 bg-background/30 relative space-y-4">
+                  {/* Subtopic Header Actions */}
+                  <div className="flex justify-between items-center border-b border-border/40 pb-2">
+                    <span className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">
+                      Subtopic #{idx + 1}
+                    </span>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        disabled={idx === 0}
+                        onClick={() => handleMoveSubtopic(idx, "up")}
+                        className="px-2 py-0.5 border border-border text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:hover:text-muted-foreground text-[9px] font-technical uppercase"
+                        title="Move Up"
+                      >
+                        Up
+                      </button>
+                      <button
+                        type="button"
+                        disabled={idx === subtopics.length - 1}
+                        onClick={() => handleMoveSubtopic(idx, "down")}
+                        className="px-2 py-0.5 border border-border text-muted-foreground hover:text-foreground disabled:opacity-30 disabled:hover:text-muted-foreground text-[9px] font-technical uppercase"
+                        title="Move Down"
+                      >
+                        Down
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSubtopic(idx)}
+                        className="px-2 py-0.5 border border-destructive/40 text-destructive hover:text-destructive hover:bg-destructive/5 text-[9px] font-technical uppercase"
+                        title="Remove Subtopic"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Subtopic Fields */}
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                      <label className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">Title</label>
+                      <input
+                        type="text"
+                        value={sub.title}
+                        onChange={(e) => handleSubtopicFieldChange(idx, "title", e.target.value)}
+                        placeholder="e.g., 1. Setup Project"
+                        className="w-full bg-background border border-border px-3 py-2 font-technical text-sm focus:border-primary focus:outline-none transition-colors text-foreground"
+                      />
+                    </div>
+                    <ImageUpload
+                      label="Subtopic Image"
+                      value={sub.image}
+                      onChange={(val) => handleSubtopicFieldChange(idx, "image", val)}
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">Details / Paragraph Content</label>
+                    <textarea
+                      value={sub.details}
+                      onChange={(e) => handleSubtopicFieldChange(idx, "details", e.target.value)}
+                      rows={4}
+                      placeholder="Add descriptive details here..."
+                      className="w-full bg-background border border-border px-3 py-2 font-technical text-sm focus:border-primary focus:outline-none transition-colors text-foreground resize-y"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">Unordered List (One item per line)</label>
+                      <textarea
+                        value={sub.unordered_list_raw}
+                        onChange={(e) => handleSubtopicFieldChange(idx, "unordered_list_raw", e.target.value)}
+                        rows={3}
+                        placeholder="First point&#10;Second point"
+                        className="w-full bg-background border border-border px-3 py-2 font-technical text-sm focus:border-primary focus:outline-none transition-colors text-foreground resize-y"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">Ordered List (One item per line)</label>
+                      <textarea
+                        value={sub.ordered_list_raw}
+                        onChange={(e) => handleSubtopicFieldChange(idx, "ordered_list_raw", e.target.value)}
+                        rows={3}
+                        placeholder="Step 1 details&#10;Step 2 details"
+                        className="w-full bg-background border border-border px-3 py-2 font-technical text-sm focus:border-primary focus:outline-none transition-colors text-foreground resize-y"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">Video URL (e.g. YouTube URL)</label>
+                      <input
+                        type="url"
+                        value={sub.video_url}
+                        onChange={(e) => handleSubtopicFieldChange(idx, "video_url", e.target.value)}
+                        placeholder="https://youtube.com/watch?v=..."
+                        className="w-full bg-background border border-border px-3 py-2 font-technical text-sm focus:border-primary focus:outline-none transition-colors text-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">Website / Live Link URL</label>
+                      <input
+                        type="url"
+                        value={sub.web_url}
+                        onChange={(e) => handleSubtopicFieldChange(idx, "web_url", e.target.value)}
+                        placeholder="https://example.com"
+                        className="w-full bg-background border border-border px-3 py-2 font-technical text-sm focus:border-primary focus:outline-none transition-colors text-foreground"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* Classification */}
         <Section title="Topic & Classification">
           <div className="grid grid-cols-2 gap-4">
             <Field label="Topic / Category" value={data.topic} onChange={set("topic")} placeholder="Web Development" />
-            <Field label="Subtopic" value={data.subtopic} onChange={set("subtopic")} placeholder="Next.js" />
+            <Field label="Subtopic Classification" value={data.subtopic} onChange={set("subtopic")} placeholder="Next.js" />
           </div>
           <Field label="Tags (comma-separated)" value={data.tags} onChange={set("tags")} placeholder="react, nextjs, typescript, tutorial" />
         </Section>
 
         {/* Media */}
         <Section title="Media">
-          <Field label="Cover Image URL" value={data.cover_image} onChange={set("cover_image")} type="url" placeholder="https://..." />
+          <ImageUpload
+            label="Banner Image"
+            value={data.cover_image}
+            onChange={set("cover_image")}
+          />
           <Field label="YouTube Video URL (optional)" value={data.youtube_url} onChange={set("youtube_url")} type="url" placeholder="https://youtube.com/watch?v=..." />
         </Section>
 
@@ -252,7 +471,7 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
           <Field label="SEO Title" value={data.seo_title} onChange={set("seo_title")} placeholder="My Amazing Post | Midhun NK" />
           <Field label="SEO Description (150-160 chars)" value={data.seo_description} onChange={set("seo_description")} rows={2} placeholder="Optimized description for search engines..." />
           <Field label="SEO Keywords (comma-separated)" value={data.seo_keywords} onChange={set("seo_keywords")} placeholder="react, web dev, fullstack" />
-          <Field label="OG Image URL (for social sharing)" value={data.og_image} onChange={set("og_image")} type="url" placeholder="https://... (defaults to cover image)" />
+          <Field label="OG Image URL (for social sharing)" value={data.og_image} onChange={set("og_image")} type="url" placeholder="https://... (defaults to banner image)" />
         </Section>
 
         {/* Meta */}

@@ -214,22 +214,22 @@ const ProjectCard = ({ project, onViewEnter, onViewLeave, onPointerEnter, onPoin
       onMouseLeave={onPointerLeave}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3, ease }}
-      className="group block border border-border hover:border-primary/50 bg-background/50 backdrop-blur-sm overflow-hidden transition-all duration-300 h-full rounded-lg flex flex-col"
+      className="group block border border-primary/50 hover:border-primary hover:shadow-[0_0_25px_hsl(var(--primary)/0.15)] bg-background/50 hover:bg-primary/[0.02] backdrop-blur-sm overflow-hidden transition-all duration-300 h-full rounded-lg flex flex-col"
     >
       {/* Image Section */}
       <div 
-        className="overflow-hidden relative w-full shrink-0 aspect-[16/10]"
+        className="overflow-hidden relative w-full shrink-0 aspect-video"
         onMouseEnter={onViewEnter}
         onMouseLeave={onViewLeave}
       >
         <img
           src={project.image}
           alt={project.title}
-          className="w-full h-full object-cover block scale-105 group-hover:scale-100 transition-transform duration-700"
+          className="w-full h-full object-cover block scale-95 group-hover:scale-100 transition-transform duration-700"
         />
         
         {/* Hover Arrow */}
-        <div className="absolute top-4 right-4 p-2 border border-border bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute top-4 right-4 p-2 border border-primary/30 group-hover:border-primary/70 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 translate-x-1 -translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300">
           <ArrowUpRight size={14} className="text-primary" />
         </div>
 
@@ -266,12 +266,12 @@ const ProjectCard = ({ project, onViewEnter, onViewLeave, onPointerEnter, onPoin
             {project.tools.map((tool) => (
               <span
                 key={tool.name}
-                className="flex items-center gap-1.5 font-technical text-[9px] uppercase tracking-widest text-muted-foreground px-2 py-1 border border-border/60 group-hover:border-primary/20 group-hover:text-foreground transition-colors duration-300"
+                className="flex items-center gap-1.5 font-technical text-[9px] uppercase tracking-widest text-primary/80 px-2 py-1 border border-primary/30 group-hover:border-primary/50 group-hover:text-primary bg-primary/[0.01] transition-all duration-300"
               >
                 <img
                   src={tool.icon}
                   alt={tool.name}
-                  className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity"
+                  className="w-3.5 h-3.5 opacity-80 group-hover:opacity-100 transition-opacity"
                   loading="lazy"
                 />
                 {tool.name}

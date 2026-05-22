@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Clock, Eye, Tag, ArrowLeft, Play, Calendar } from "lucide-react";
+import { Clock, Eye, Tag, ArrowLeft, Play, Calendar, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { supabase, Subtopic } from "@/lib/supabase";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -17,6 +17,7 @@ interface Blog {
   content: string;
   topic: string;
   subtopic: string | null;
+  subtopics: Subtopic[] | null;
   tags: string[];
   cover_image: string | null;
   youtube_url: string | null;
@@ -107,7 +108,7 @@ export default function BlogPostPage() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease }}
-        className="max-w-3xl mx-auto"
+        className="max-w-5xl mx-auto"
       >
         {/* Back */}
         <Link href="/blog">
@@ -147,7 +148,7 @@ export default function BlogPostPage() {
             className="mt-10 overflow-hidden border border-border"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={blog.cover_image} alt={blog.title} className="w-full h-auto max-h-96 object-cover" />
+            <img src={blog.cover_image} alt={blog.title} className="w-full h-auto max-h-[480px] object-cover" />
           </motion.div>
         )}
 
@@ -174,15 +175,98 @@ export default function BlogPostPage() {
           </motion.div>
         )}
 
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.3 }}
-          className="mt-12 prose-blog"
-          style={{ fontFamily: "var(--font-mono)", fontSize: "14px" }}
-          dangerouslySetInnerHTML={{ __html: renderContent(blog.content) }}
-        />
+        {/* Intro Content */}
+        {blog.content && blog.content.trim() !== "" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.3 }}
+            className="mt-12 prose-blog"
+            style={{ fontFamily: "var(--font-mono)", fontSize: "14px" }}
+            dangerouslySetInnerHTML={{ __html: renderContent(blog.content) }}
+          />
+        )}
+
+        {/* Subtopics */}
+        {blog.subtopics && blog.subtopics.length > 0 && (
+          <div className="mt-12 space-y-12">
+            {blog.subtopics.map((sub, idx) => {
+              const ytSubId = sub.video_url ? getYouTubeId(sub.video_url) : null;
+              return (
+                <div key={idx} className="border-t border-border pt-10 space-y-6">
+                  {/* Subtopic Title */}
+                  {sub.title && (
+                    <h2 className="font-display text-3xl md:text-4xl italic tracking-tight text-foreground">
+                      {sub.title}
+                    </h2>
+                  )}
+
+                  {/* Subtopic Image */}
+                  {sub.image && (
+                    <div className="overflow-hidden border border-border">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={sub.image} alt={sub.title || "Subtopic image"} className="w-full h-auto max-h-[480px] object-cover" />
+                    </div>
+                  )}
+
+                  {/* Subtopic Details */}
+                  {sub.details && (
+                    <p className="font-technical text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {sub.details}
+                    </p>
+                  )}
+
+                  {/* Subtopic Unordered List */}
+                  {sub.unordered_list && sub.unordered_list.length > 0 && (
+                    <ul className="list-disc pl-5 space-y-2 font-technical text-sm text-muted-foreground">
+                      {sub.unordered_list.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Subtopic Ordered List */}
+                  {sub.ordered_list && sub.ordered_list.length > 0 && (
+                    <ol className="list-decimal pl-5 space-y-2 font-technical text-sm text-muted-foreground">
+                      {sub.ordered_list.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ol>
+                  )}
+
+                  {/* Subtopic Website Link */}
+                  {sub.web_url && (
+                    <div className="mt-4">
+                      <a
+                        href={sub.web_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 border border-primary text-primary hover:bg-primary/10 transition-colors font-technical text-xs uppercase tracking-widest"
+                      >
+                        <ExternalLink size={12} /> Open Website
+                      </a>
+                    </div>
+                  )}
+
+                  {/* Subtopic Video */}
+                  {ytSubId && (
+                    <div className="mt-4">
+                      <div className="relative aspect-video border border-border overflow-hidden">
+                        <iframe
+                          src={`https://www.youtube.com/embed/${ytSubId}`}
+                          title="Subtopic video"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="absolute inset-0 w-full h-full"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* Tags */}
         {blog.tags?.length > 0 && (

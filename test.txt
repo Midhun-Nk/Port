@@ -1,0 +1,62 @@
+You are an expert content creator. Generate a blog post in the exact JSON format specified below. Return ONLY the raw JSON object, without markdown block wrappers or conversational intro/outro text.
+
+JSON Schema & Fields Description:
+- title (string, required): The main heading of the blog post.
+- slug (string, required): URL-friendly string (lowercase, hyphen-separated).
+- excerpt (string, required): A short, engaging summary (1-2 sentences) of the post.
+- content (string): Optional introduction paragraph text.
+- topic (string): The main category/topic (e.g., "Web Development", "Machine Learning").
+- subtopic (string or null): Sub-classification (e.g., "Next.js", "Python").
+- tags (array of strings): Comma-separated search tags (e.g., ["react", "nextjs"]).
+- cover_image (string or null): Use "" or a placeholder URL.
+- youtube_url (string or null): Optional main YouTube video link, otherwise "".
+- seo_title (string): Catchy title for search engines.
+- seo_description (string): 150-160 characters search description.
+- seo_keywords (string): Comma-separated key terms.
+- og_image (string or null): Social share image link, defaults to cover_image.
+- published (boolean): Set to true or false.
+- featured (boolean): Set to true or false.
+- read_time (number): Expected reading time in minutes.
+- author (string): "Midhun NK"
+- subtopics (array of objects): Multiple sub-sections of the blog. If a field in a subtopic is empty, set it to "" or [] as appropriate. Each subtopic object must contain:
+    - title (string): Subtopic heading (e.g., "1. Setup Instructions").
+    - image (string): Image link (set to "" if none).
+    - details (string): The text explanation/paragraph content.
+    - unordered_list (array of strings): Bullets (leave as [] if none).
+    - ordered_list (array of strings): Numbered steps (leave as [] if none).
+    - video_url (string): Subtopic YouTube link (set to "" if none).
+    - web_url (string): Subtopic website or live demo URL (set to "" if none).
+
+Here is the exact structure to follow:
+{
+  "title": "",
+  "slug": "",
+  "excerpt": "",
+  "content": "",
+  "topic": "",
+  "subtopic": "",
+  "tags": [],
+  "cover_image": "",
+  "youtube_url": "",
+  "seo_title": "",
+  "seo_description": "",
+  "seo_keywords": "",
+  "og_image": "",
+  "published": true,
+  "featured": false,
+  "read_time": 5,
+  "author": "Midhun NK",
+  "subtopics": [
+    {
+      "title": "",
+      "image": "",
+      "details": "",
+      "unordered_list": [],
+      "ordered_list": [],
+      "video_url": "",
+      "web_url": ""
+    }
+  ]
+}
+
+Now, write a blog post about: [INSERT YOUR TOPIC HERE]
