@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Camera, Users, Heart, Play, TrendingUp } from "lucide-react";
+import { Camera, Users, Heart, Play, TrendingUp, Clock } from "lucide-react";
 
 interface ContentSectionProps {
   onPointerEnter: () => void;
@@ -16,35 +16,43 @@ const stats = [
   { icon: TrendingUp, value: "500K+", label: "Reach" },
 ];
 
-// UPDATE THESE: Add your actual reel titles, stats, and local thumbnail paths here
+// 1. ADDED tags and duration to the reels array
 const reels = [
   {
-    title: "Replace with your first reel title", 
-    views: "12.4K",
-    likes: "1.2K",
-    thumbnail: "/assets/reel-1.jpg", // Save your thumbnail image in public/assets/
-    url: "https://www.instagram.com/reel/DV7YhzxEjHq/?igsh=cG45ZGd0NDNiZm9x",
-  },
-  {
-    title: "Replace with your second reel title",
-    views: "24.1K",
-    likes: "3.4K",
-    thumbnail: "/assets/reel-2.jpg",
-    url: "https://www.instagram.com/reel/DU4dwYZjBLk/?igsh=MWtnMnFxdXd1Z2o5Zg==",
-  },
-  {
-    title: "Replace with your third reel title",
-    views: "8.7K",
-    likes: "980",
-    thumbnail: "/assets/reel-3.jpg",
-    url: "https://www.instagram.com/reel/DUKGxockiHd/?igsh=MW0ydG4wbHJlb3Q0bg==",
-  },
-  {
-    title: "Replace with your fourth reel title",
-    views: "18.3K",
+    title: "Optimize Your Linkedin Profile Using Claude AI", 
+    views: "171K",
     likes: "2.1K",
-    thumbnail: "/assets/reel-4.jpg",
+    thumbnail: "/assets/reel-1.png",
+    url: "https://www.instagram.com/reel/DV7YhzxEjHq/?igsh=cG45ZGd0NDNiZm9x",
+    tags: ["#linkedin", "#ai", "#career"],
+    duration: "0:45",
+  },
+  {
+    title: "Github Secrets Developer Must Known",
+    views: "285.1K",
+    likes: "6.7K",
+    thumbnail: "/assets/reel-2.png",
+    url: "https://www.instagram.com/reel/DU4dwYZjBLk/?igsh=MWtnMnFxdXd1Z2o5Zg==",
+    tags: ["#github", "#devops", "#tips"],
+    duration: "0:58",
+  },
+  {
+    title: "Learn CSS by Player Games",
+    views: "81.7K",
+    likes: "2.5K",
+    thumbnail: "/assets/reel-3.png",
+    url: "https://www.instagram.com/reel/DUKGxockiHd/?igsh=MW0ydG4wbHJlb3Q0bg==",
+    tags: ["#css", "#frontend", "#games"],
+    duration: "0:32",
+  },
+  {
+    title: "Convert Figma into Code in 5 Seconds",
+    views: "53.3K",
+    likes: "1.1K",
+    thumbnail: "/assets/reel-4.png",
     url: "https://www.instagram.com/reel/DVNDbgKEtTA/?igsh=ZmZ0djRtb25jcWRx",
+    tags: ["#figma", "#react", "#tools"],
+    duration: "0:41",
   },
 ];
 
@@ -55,7 +63,7 @@ const topics = [
 
 const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps) => {
   return (
-    <section id="content" className="px-8 md:px-12 py-8 relative z-10">
+    <section id="content" className="px-6 md:px-8 py-8 relative z-10">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -182,36 +190,60 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
                 whileHover={{ y: -6, scale: 1.02 }}
                 onMouseEnter={onPointerEnter}
                 onMouseLeave={onPointerLeave}
-                className="w-[85vw] sm:w-[300px] md:w-auto shrink-0 snap-center md:snap-align-none group border border-border rounded-xl overflow-hidden bg-card/20 hover:border-primary/30 transition-all duration-500 cursor-pointer flex flex-col block"
+                className="w-[85vw] sm:w-[300px] md:w-auto shrink-0 snap-center md:snap-align-none group border border-border rounded-xl overflow-hidden bg-card/20 hover:border-primary/50 hover:bg-card/40 transition-all duration-500 cursor-pointer flex flex-col block"
               >
-                {/* REPLACED GRADIENT WITH IMAGE THUMBNAIL */}
+                {/* Thumbnail Header */}
                 <div className="h-40 relative flex items-center justify-center shrink-0 bg-muted overflow-hidden">
                   <img 
                     src={reel.thumbnail} 
                     alt={reel.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  {/* Overlay for contrast so the play button stands out */}
-                  <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
                   
                   <motion.div
-                    className="w-12 h-12 relative z-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30 text-white"
+                    className="w-12 h-12 relative z-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 text-white shadow-lg"
                     whileHover={{ scale: 1.15 }}
                   >
                     <Play className="w-5 h-5 ml-0.5 fill-white" />
                   </motion.div>
                 </div>
 
-                <div className="p-4 flex-grow flex flex-col justify-between">
-                  <h4 className="font-technical text-xs text-foreground font-medium mb-3 leading-relaxed line-clamp-2">
-                    {reel.title}
-                  </h4>
-                  <div className="flex items-center gap-4">
-                    <span className="font-technical text-[10px] text-muted-foreground flex items-center gap-1">
-                      <Play className="w-3 h-3" /> {reel.views}
-                    </span>
-                    <span className="font-technical text-[10px] text-muted-foreground flex items-center gap-1">
-                      <Heart className="w-3 h-3" /> {reel.likes}
+                {/* 2. ENHANCED Card Body */}
+                <div className="p-5 flex-grow flex flex-col justify-between gap-4">
+                  <div>
+                    {/* Hashtags Segment */}
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {reel.tags.map((tag, idx) => (
+                        <span 
+                          key={idx} 
+                          className="font-technical text-[9px] text-primary uppercase tracking-widest bg-primary/10 px-2 py-1 rounded-md"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Title with hover color effect */}
+                    <h4 className="font-technical text-sm text-foreground font-medium leading-relaxed line-clamp-2 group-hover:text-primary transition-colors duration-300">
+                      {reel.title}
+                    </h4>
+                  </div>
+
+                  {/* Footer Stats with Top Border */}
+                  <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                    <div className="flex items-center gap-4">
+                      <span className="font-technical text-[10px] text-muted-foreground flex items-center gap-1.5">
+                        <Play className="w-3.5 h-3.5 text-foreground/60" /> {reel.views}
+                      </span>
+                      <span className="font-technical text-[10px] text-muted-foreground flex items-center gap-1.5">
+                        <Heart className="w-3.5 h-3.5 text-foreground/60" /> {reel.likes}
+                      </span>
+                    </div>
+                    
+                    {/* Duration / Length */}
+                    <span className="font-technical text-[10px] text-muted-foreground/60 flex items-center gap-1">
+                      <Clock className="w-3 h-3" /> {reel.duration}
                     </span>
                   </div>
                 </div>
@@ -219,35 +251,6 @@ const ContentSection = ({ onPointerEnter, onPointerLeave }: ContentSectionProps)
             ))}
           </div>
         </div>
-
-        {/* Topics */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease, delay: 0.3 }}
-        >
-          <span className="font-technical text-[10px] text-muted-foreground uppercase tracking-widest block mb-5">
-            Topics I Cover
-          </span>
-          <div className="flex flex-wrap gap-3">
-            {topics.map((topic, i) => (
-              <motion.span
-                key={topic}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, ease, delay: 0.35 + i * 0.04 }}
-                whileHover={{ scale: 1.08, y: -2 }}
-                onMouseEnter={onPointerEnter}
-                onMouseLeave={onPointerLeave}
-                className="font-technical text-[11px] uppercase tracking-widest px-5 py-2.5 border border-border rounded-full text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors duration-400 cursor-default"
-              >
-                {topic}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div> */}
       </motion.div>
     </section>
   );
