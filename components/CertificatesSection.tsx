@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CertificatesSectionProps {
   onPointerEnter: () => void;
@@ -14,6 +15,7 @@ const certificates = [
     issuer: "Udemy",
     year: "2025",
     image: "/certificates/certificate-1.png",
+    description: "Comprehensive training in building scalable web applications, REST APIs, and server-side logic using Python and the Django framework.",
     skills: [
       { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
       { name: "django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" },
@@ -25,6 +27,7 @@ const certificates = [
     issuer: "Udemy",
     year: "2025",
     image: "/certificates/certificate-2.png",
+    description: "Mastery of fundamental data structures, algorithms, search/sort techniques, and complexity analysis using Python for optimized problem-solving.",
     skills: [
       { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
       { name: "DSA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
@@ -35,6 +38,7 @@ const certificates = [
     issuer: "MDIT",
     year: "2024",
     image: "/certificates/certificate-3.png",
+    description: "Collaborative training and development workshops focusing on signal processing, fullstack applications, and technical leadership.",
     skills: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
@@ -46,6 +50,7 @@ const certificates = [
     issuer: "freeCodeCamp",
     year: "2024",
     image: "/certificates/certificate-4.png",
+    description: "Solid foundations in modern responsive layout design, HTML5, CSS3, accessibility standards, flexbox/grid, and media queries.",
     skills: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
@@ -53,10 +58,11 @@ const certificates = [
     ]
   },
   {
-    title: "Python Intership",
+    title: "Python Internship",
     issuer: "Revertech IT Solution",
     year: "2023",
     image: "/certificates/certificate-5.png",
+    description: "Hands-on industrial internship working on real-world backend automation, scripting, API design, and PostgreSQL integration.",
     skills: [
       { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
     ]
@@ -66,6 +72,7 @@ const certificates = [
     issuer: "Edunet Foundation",
     year: "2025",
     image: "/certificates/certificate-6.png",
+    description: "End-to-end full-stack development experience building RESTful architectures using React, Express, Node.js, and MongoDB.",
     skills: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
@@ -77,6 +84,7 @@ const certificates = [
     issuer: "SkillUp",
     year: "2025",
     image: "/certificates/certificate-7.png",
+    description: "Relational database design, query optimization, complex joins, indexing, and transactional database management using MySQL and PostgreSQL.",
     skills: [
       { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
       { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" }
@@ -87,6 +95,7 @@ const certificates = [
     issuer: "Udemy",
     year: "2025",
     image: "/certificates/certificate-8.png",
+    description: "Advanced API development, covering token authentication, throttling, serializers, viewsets, and DRF unit testing.",
     skills: [
       { name: "django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" },
       { name: "python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
@@ -99,6 +108,8 @@ const certificates = [
 const sortedCertificates = [...certificates].sort((a, b) => Number(b.year) - Number(a.year));
 
 const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSectionProps) => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+
   return (
     <section id="certificates" className="px-8 md:px-12 py-24 relative z-10">
       <motion.div
@@ -107,72 +118,150 @@ const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSec
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, ease }}
       >
+        {/* Header */}
         <div className="flex justify-between items-end mb-16 border-b border-border pb-6">
           <div>
-            <span className="font-technical text-[10px] text-primary uppercase tracking-widest">Certifications</span>
+            <span className="font-technical text-[10px] text-primary uppercase tracking-widest">Credentials Registry</span>
             <h2 className="font-display text-5xl md:text-7xl italic tracking-tighter mt-2">Certificates</h2>
           </div>
-
           <span className="font-technical text-[10px] text-muted-foreground tracking-widest uppercase hidden md:inline-block">
-            {sortedCertificates.length} Certificates
+            {sortedCertificates.length} Records Indexed
           </span>
         </div>
 
-        {/* UPDATED CONTAINER */}
-        <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8 -mx-8 px-8 md:mx-0 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {sortedCertificates.map((cert, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              onMouseEnter={onPointerEnter}
-              onMouseLeave={onPointerLeave}
-              className="w-[85vw] sm:w-[350px] md:w-auto shrink-0 snap-center md:snap-align-none group p-5 border border-primary/50 bg-background/50 backdrop-blur-sm hover:border-primary hover:shadow-[0_0_25px_hsl(var(--primary)/0.15)] hover:bg-primary/[0.02] transition-all duration-300 flex flex-col h-full rounded-xl"
-            >
-              {/* Image Container with Hover Effects */}
-              <div className="w-full aspect-[4/3] mb-6 overflow-hidden rounded border border-primary/30 group-hover:border-primary/50 bg-muted/20 relative shrink-0">
-                <img
-                  src={cert.image}
-                  alt={`${cert.title} Certificate`}
-                  className="w-full h-full object-cover scale-95 group-hover:scale-100 transition-all duration-700 ease-in-out"
-                />
-              </div>
+        {/* Dynamic Split Layout */}
+        <div className="grid grid-cols-12 gap-8 lg:gap-12">
+          
+          {/* Left Column: Certificate Rows */}
+          <div className="col-span-12 md:col-span-7 flex flex-col border-t border-border/80">
+            {sortedCertificates.map((cert, i) => {
+              const isActive = activeIndex === i;
+              const formattedIndex = String(i + 1).padStart(2, "0");
 
-              {/* Text Content */}
-              <div className="flex flex-col flex-grow">
-                <span className="font-technical text-[10px] text-primary/80 uppercase tracking-widest">
-                  {cert.year}
-                </span>
-                <h3 className="font-display text-xl italic mt-3 text-primary group-hover:text-primary transition-colors duration-500">
-                  {cert.title}
-                </h3>
-                <p className="font-technical text-[11px] text-muted-foreground mt-2 tracking-wide mb-6">
-                  {cert.issuer}
-                </p>
-
-                {/* Skills Badges */}
-                <div className="mt-auto pt-4 flex flex-wrap gap-2 border-t border-primary/50">
-                  {cert.skills.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="flex items-center gap-1.5 font-technical text-[9px] uppercase tracking-widest text-primary/80 px-2 py-1 border border-primary/30 group-hover:border-primary/50 group-hover:text-primary bg-primary/[0.01] transition-all duration-300"
-                    >
-                      <img
-                        src={skill.icon}
-                        alt={skill.name}
-                        className="w-4 h-4 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                        loading="lazy"
-                      />
-                      {skill.name}
+              return (
+                <div
+                  key={i}
+                  onMouseEnter={() => {
+                    setActiveIndex(i);
+                    onPointerEnter();
+                  }}
+                  onMouseLeave={onPointerLeave}
+                  onClick={() => setActiveIndex(i)}
+                  className={`border-b border-border/80 py-6 transition-all duration-300 cursor-pointer group rounded-none relative overflow-hidden px-4 md:px-6 ${
+                    isActive 
+                      ? "bg-primary/[0.02] border-b-primary shadow-[inset_4px_0_0_0_hsl(var(--primary))]" 
+                      : "hover:bg-primary/[0.005] hover:border-b-primary/50"
+                  }`}
+                >
+                  {/* Top line of metadata */}
+                  <div className="flex items-center justify-between gap-4 mb-2 font-technical text-[10px] uppercase tracking-widest">
+                    <span className={`transition-colors ${isActive ? "text-primary font-bold" : "text-muted-foreground"}`}>
+                      [{formattedIndex}]
                     </span>
-                  ))}
+                    <div className="flex gap-4">
+                      <span className="text-muted-foreground">{cert.issuer}</span>
+                      <span className="text-primary">{cert.year}</span>
+                    </div>
+                  </div>
+
+                  {/* Certificate Title */}
+                  <h3 className={`font-display text-xl md:text-2xl italic tracking-tight transition-colors duration-300 ${
+                    isActive ? "text-primary" : "text-foreground group-hover:text-primary/80"
+                  }`}>
+                    {cert.title}
+                  </h3>
+
+                  {/* Expandable Details Container */}
+                  <motion.div
+                    initial={false}
+                    animate={{ height: isActive ? "auto" : 0, opacity: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.4, ease }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-4 flex flex-col gap-4">
+                      {/* Description */}
+                      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                        {cert.description}
+                      </p>
+
+                      {/* Skills Badges */}
+                      <div className="flex flex-wrap gap-2 pt-2 border-t border-border/50">
+                        {cert.skills.map((skill, index) => (
+                          <span
+                            key={index}
+                            className="flex items-center gap-1.5 font-technical text-[9px] uppercase tracking-widest text-primary/80 px-2 py-1 border border-primary/30 group-hover:border-primary/50 group-hover:text-primary bg-primary/[0.01] transition-all duration-300 rounded-none"
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={skill.icon}
+                              alt={skill.name}
+                              className="w-3.5 h-3.5 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                              loading="lazy"
+                            />
+                            {skill.name}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Mobile Only: Inline Image Preview */}
+                      <div className="block md:hidden mt-4 border border-primary/30 bg-muted/20 w-full overflow-hidden aspect-[4/3] rounded-none">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={cert.image}
+                          alt={`${cert.title} Preview`}
+                          className="w-full h-full object-cover scale-95"
+                        />
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
+              );
+            })}
+          </div>
+
+          {/* Right Column: Sticky technical preview panel (Desktop only) */}
+          <div className="hidden md:block md:col-span-5 relative">
+            <div className="sticky top-32 w-full flex flex-col">
+              {/* Technical framing decoration */}
+              <div className="flex justify-between items-center text-[9px] font-technical text-primary/60 uppercase tracking-widest px-3 py-1.5 border-t border-x border-primary/30 bg-primary/[0.01]">
+                <span>[CREDENTIAL-PREVIEW: {String(activeIndex + 1).padStart(2, "0")}]</span>
+                <span className="w-1.5 h-1.5 bg-primary animate-pulse" />
               </div>
-            </motion.div>
-          ))}
+
+              {/* Main Image Frame */}
+              <div className="w-full aspect-[4/3] border border-primary/30 bg-card/20 backdrop-blur-md overflow-hidden relative group rounded-none flex items-center justify-center p-4">
+                {/* Visual grid line overlays */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+                <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.05 }}
+                    transition={{ duration: 0.3, ease }}
+                    className="w-full h-full relative"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={sortedCertificates[activeIndex].image}
+                      alt={sortedCertificates[activeIndex].title}
+                      className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(0,0,0,0.5)] scale-95"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Lower frame decoration */}
+              <div className="flex justify-between items-center text-[8px] font-technical text-muted-foreground uppercase tracking-widest px-3 py-2 border-b border-x border-primary/30 bg-primary/[0.01]">
+                <span>SYS.STATUS: ACTIVE_DECRYPT</span>
+                <span>MD5_VERIFIED</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </motion.div>
     </section>

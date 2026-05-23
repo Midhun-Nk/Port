@@ -15,6 +15,15 @@ type ActiveState = "fullstack" | "creator";
 const Hero = ({ onPointerEnter, onPointerLeave, onViewEnter, onViewLeave }: HeroProps) => {
   const [active, setActive] = useState<ActiveState>("fullstack");
   const [isHovered, setIsHovered] = useState<ActiveState | null>(null);
+  const [greeting, setGreeting] = useState("Hello");
+
+  useEffect(() => {
+    const hrs = new Date().getHours();
+    if (hrs < 12) setGreeting("Good Morning");
+    else if (hrs < 17) setGreeting("Good Afternoon");
+    else if (hrs < 22) setGreeting("Good Evening");
+    else setGreeting("Good Night");
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,11 +56,23 @@ const getTextStyle = (which: ActiveState) => ({
     <section className="relative min-h-screen flex flex-col justify-start items-center px-8 md:px-12 pt-28 pb-0 mt-4 overflow-hidden">
       <div className="relative w-full flex flex-col items-center justify-center flex-1 mt-8" style={{ minHeight: "60vh" }}>
 
+        {/* Mobile Dynamic Greeting */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease, delay: 0.8 }}
+          className="absolute top-[2%] left-0 right-0 flex sm:hidden justify-center items-center z-40"
+        >
+          <span className="font-display text-2xl italic tracking-tight text-muted-foreground/60">
+            {greeting}<span className="text-primary">.</span>
+          </span>
+        </motion.div>
+
         <motion.h1
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] left-0 right-0 cursor-pointer z-10"
+          className="font-display text-[13vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] -left-6 sm:left-0 right-0 cursor-pointer z-10"
           onMouseEnter={() => { setIsHovered("fullstack"); onViewEnter(); }}
           onMouseLeave={() => { setIsHovered(null); onViewLeave(); }}
           style={{ x: textLeft }}
@@ -63,7 +84,7 @@ const getTextStyle = (which: ActiveState) => ({
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] left-0 right-0 pointer-events-none z-30"
+          className="font-display text-[13vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[12%] sm:top-[35%] md:top-[20%] -left-6 sm:left-0 right-0 pointer-events-none z-30"
           style={{ x: textLeft }}
         >
           <span className="whitespace-nowrap block" style={getStrokeStyle("fullstack")}>Fullstack Developer</span>
@@ -99,7 +120,7 @@ const getTextStyle = (which: ActiveState) => ({
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.65 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[24%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] left-0 right-0 cursor-pointer z-10"
+          className="font-display text-[13vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[20%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] -left-6 sm:left-0 right-0 cursor-pointer z-10"
           onMouseEnter={() => { setIsHovered("creator"); onViewEnter(); }}
           onMouseLeave={() => { setIsHovered(null); onViewLeave(); }}
           style={{ x: textRight }}
@@ -111,7 +132,7 @@ const getTextStyle = (which: ActiveState) => ({
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease, delay: 0.65 }}
-          className="font-display text-[18vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[24%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] left-0 right-0 pointer-events-none z-30"
+          className="font-display text-[13vw] sm:text-[16vw] md:text-[15vw] lg:text-[12vw] leading-[0.85] italic tracking-tighter text-center select-none absolute top-[20%] bottom-auto sm:top-auto sm:bottom-[20%] md:bottom-[25%] -left-6 sm:left-0 right-0 pointer-events-none z-30"
           style={{ x: textRight }}
         >
           <span className="whitespace-nowrap block" style={getStrokeStyle("creator")}>& Content Creator</span>

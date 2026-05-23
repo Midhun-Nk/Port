@@ -93,10 +93,10 @@ const ParallaxBackground = () => {
         </motion.div>
 
         {/* Diagonal accent lines */}
-        <motion.div
+        {/* <motion.div
           className="absolute top-[20%] left-[60%] w-[1px] h-[300px] bg-primary/10 rotate-[25deg]"
           style={{ x: layer2X, y: layer2Y }}
-        />
+        /> */}
         <motion.div
           className="absolute top-[50%] left-[20%] w-[1px] h-[200px] bg-primary/5 rotate-[-15deg]"
           style={{ x: layer3X, y: layer3Y }}

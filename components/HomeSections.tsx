@@ -9,6 +9,7 @@ import CertificatesSection from "@/components/CertificatesSection";
 import ContactSection from "@/components/ContactSection";
 import ContentSection from "@/components/ContentSection";
 import FreelanceSection from "@/components/FreelanceSection";
+import BlogSection from "@/components/BlogSection";
 import { useCursor } from "@/components/CustomCursor";
 
 export default function HomeSections() {
@@ -39,6 +40,7 @@ export default function HomeSections() {
         />
       </section>
       <CertificatesSection {...cursorProps} />
+      <BlogSection {...cursorProps} />
       <ContactSection {...cursorProps} />
     </>
   );
