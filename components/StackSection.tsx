@@ -84,7 +84,7 @@ const StackSection = ({ onPointerEnter, onPointerLeave }: StackSectionProps) => 
   );
 
   return (
-    <section id="stack" className="px-8 md:px-12 relative z-10 py-10">
+    <section id="stack" className="px-8 md:px-8 relative z-10 py-8">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +119,7 @@ const StackSection = ({ onPointerEnter, onPointerLeave }: StackSectionProps) => 
           </div>
 
           {/* Active Category Content (Animated) */}
-          <div className="mt-2 min-h-[300px]">
+          <div className="mt-2 min-h-[250px]">
             <AnimatePresence mode="wait">
               {categories.map((cat) =>
                 cat.title === activeTab ? (

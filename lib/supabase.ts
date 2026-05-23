@@ -46,6 +46,32 @@ export type Database = {
         Insert: Omit<Database['public']['Tables']['blogs']['Row'], 'id' | 'created_at' | 'updated_at' | 'views'>;
         Update: Partial<Database['public']['Tables']['blogs']['Insert']>;
       };
+      contact_submissions: {
+        Row: {
+          id: string;
+          created_at: string;
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+        };
+        Update: Partial<{
+          id: string;
+          created_at: string;
+          name: string;
+          email: string;
+          subject: string;
+          message: string;
+        }>;
+      };
     };
   };
 };

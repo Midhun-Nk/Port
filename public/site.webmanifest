@@ -1,0 +1,17 @@
+{
+  "name": "Midhun NK — Fullstack Developer & Content Creator",
+  "short_name": "Midhun NK",
+  "description": "Portfolio of Midhun NK — Fullstack Developer and Content Creator from India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" },
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["portfolio", "technology", "development"],
+  "lang": "en"
+}

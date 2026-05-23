@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+/* font-display:swap is already set via &display=swap in the URL above */
 
 @tailwind base;
 @tailwind components;
@@ -152,3 +153,45 @@
 .prose-blog ul li::before { content: "—"; position: absolute; left: 0; color: hsl(var(--primary)); }
 .prose-blog pre { background: hsl(var(--secondary)); border: 1px solid hsl(var(--border)); padding: 1.5rem; overflow-x: auto; margin: 1.5rem 0; }
 .prose-blog code { color: hsl(var(--primary)); font-size: 0.875em; }
+
+/* ===== SEO / AEO / Performance Additions ===== */
+
+/* Ensure proper CLS prevention for images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Skip navigation link for accessibility + SEO */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-to-content:focus {
+  top: 1rem;
+}
+
+/* Improve font loading CLS */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-display: swap;
+}
+
+/* Proper focus visible for SEO-important interactive elements */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 2px;
+}

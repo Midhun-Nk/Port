@@ -10,6 +10,7 @@ import {
   FaXTwitter,
   FaInstagram
 } from "react-icons/fa6";
+import { supabase } from "@/lib/supabase";
 
 interface ContactSectionProps {
   onPointerEnter: () => void;
@@ -19,11 +20,11 @@ interface ContactSectionProps {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const socials = [
-  { name: "GitHub", icon: FaGithub, url: "#" },
-  { name: "LinkedIn", icon: FaLinkedin, url: "#" },
-  { name: "YouTube", icon: FaYoutube, url: "#" },
-  { name: "Twitter / X", icon: FaXTwitter, url: "#" },
-  { name: "Instagram", icon: FaInstagram, url: "#" },
+  { name: "GitHub", icon: FaGithub, url: "https://github.com/Midhun-Nk" },
+  { name: "LinkedIn", icon: FaLinkedin, url: "https://www.linkedin.com/in/midhun-nk/" },
+  { name: "YouTube", icon: FaYoutube, url: "https://www.youtube.com/@EduMikeStudio" },
+  { name: "Twitter / X", icon: FaXTwitter, url: "https://x.com/mike_devlogs" },
+  { name: "Instagram", icon: FaInstagram, url: "https://www.instagram.com/mike.devlogs" },
 ];
 
 const contactInfo = [
@@ -43,18 +44,35 @@ const ContactSection = ({ onPointerEnter, onPointerLeave }: ContactSectionProps)
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+    if (!form.name.trim() || !form.email.trim() || !form.subject.trim() || !form.message.trim()) {
       toast.error("Please fill in all fields");
       return;
     }
     setSending(true);
-    setTimeout(() => {
-      setSending(false);
+    try {
+      const { error } = await supabase
+        .from("contact_submissions")
+        .insert([
+          {
+            name: form.name.trim(),
+            email: form.email.trim(),
+            subject: form.subject.trim(),
+            message: form.message.trim(),
+          },
+        ]);
+
+      if (error) throw error;
+
       toast.success("Message sent! I'll get back to you soon.");
       setForm({ name: "", email: "", subject: "", message: "" });
-    }, 1500);
+    } catch (err) {
+      console.error("Error submitting contact form:", err);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
