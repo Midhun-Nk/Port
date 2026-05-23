@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 
 const BASE_URL = "https://midhunnk.com";
+const staticExportFallbackParams = [{ slug: "__static_export_placeholder__" }];
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -13,10 +14,10 @@ export async function generateStaticParams() {
       .from("blogs")
       .select("slug")
       .eq("published", true);
-    if (!data) return [];
+    if (!data || data.length === 0) return staticExportFallbackParams;
     return data.map((blog) => ({ slug: blog.slug }));
   } catch {
-    return [];
+    return staticExportFallbackParams;
   }
 }
 
