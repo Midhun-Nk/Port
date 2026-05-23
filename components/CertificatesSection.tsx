@@ -133,7 +133,7 @@ const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSec
         <div className="grid grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left Column: Certificate Rows */}
-          <div className="col-span-12 md:col-span-7 flex flex-col border-t border-border/80">
+          <div className="col-span-12 md:col-span-7 flex flex-col border-t border-border">
             {sortedCertificates.map((cert, i) => {
               const isActive = activeIndex === i;
               const formattedIndex = String(i + 1).padStart(2, "0");
@@ -147,7 +147,7 @@ const CertificatesSection = ({ onPointerEnter, onPointerLeave }: CertificatesSec
                   }}
                   onMouseLeave={onPointerLeave}
                   onClick={() => setActiveIndex(i)}
-                  className={`border-b border-border/80 py-6 transition-all duration-300 cursor-pointer group rounded-none relative overflow-hidden px-4 md:px-6 ${
+                  className={`border-b border-border py-6 transition-all duration-300 cursor-pointer group rounded-none relative overflow-hidden px-4 md:px-6 ${
                     isActive 
                       ? "bg-primary/[0.02] border-b-primary shadow-[inset_4px_0_0_0_hsl(var(--primary))]" 
                       : "hover:bg-primary/[0.005] hover:border-b-primary/50"
