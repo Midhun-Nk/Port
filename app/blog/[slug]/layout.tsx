@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 const staticExportFallbackParams = [{ slug: "__static_export_placeholder__" }];
 
 interface Props {

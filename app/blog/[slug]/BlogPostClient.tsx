@@ -9,7 +9,7 @@ import Image from "next/image";
 import { supabase, Subtopic } from "@/lib/supabase";
 import Script from "next/script";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 const ease = [0.16, 1, 0.3, 1] as const;
 
 interface Blog {

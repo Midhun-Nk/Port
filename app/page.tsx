@@ -3,7 +3,7 @@ import HomeSections from "@/components/HomeSections";
 import Script from "next/script";
 import FAQSchema, { portfolioFAQs } from "@/components/FAQSchema";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 export const metadata: Metadata = {
   title: "Midhun NK — Fullstack Developer & Content Creator",

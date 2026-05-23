@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 // Static pages with priorities and change frequencies
 const staticRoutes: MetadataRoute.Sitemap = [

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import CertificatesClient from "@/components/CertificatesClient";
 import Script from "next/script";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 export const metadata: Metadata = {
   title: "Certifications & Awards — Midhun NK's Professional Credentials",

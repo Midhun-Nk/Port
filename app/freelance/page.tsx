@@ -3,7 +3,7 @@ import FreelanceClient from "@/components/FreelanceClient";
 import Script from "next/script";
 import FAQSchema, { freelanceFAQs } from "@/components/FAQSchema";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 export const metadata: Metadata = {
   title: "Freelance Web Development Services — Hire Midhun NK",

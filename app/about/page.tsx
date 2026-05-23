@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import AboutClient from "@/components/AboutClient";
 import Script from "next/script";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 export const metadata: Metadata = {
   title: "About Midhun NK — Fullstack Developer from India",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ExperienceClient from "@/components/ExperienceClient";
 import Script from "next/script";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 export const metadata: Metadata = {
   title: "Work Experience — Midhun NK's Software Engineering Career",

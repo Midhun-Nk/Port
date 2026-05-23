@@ -68,12 +68,12 @@ export const portfolioFAQs: FAQ[] = [
   {
     question: "Where can I read Midhun NK's developer blog?",
     answer:
-      "Midhun NK's developer blog is available at midhunnk.com/blog, covering topics like React, Next.js, Node.js, TypeScript, and modern web development practices.",
+      "Midhun NK's developer blog is available at midhunnk.in/blog, covering topics like React, Next.js, Node.js, TypeScript, and modern web development practices.",
   },
   {
     question: "How can I contact Midhun NK?",
     answer:
-      "You can contact Midhun NK through the contact form on his portfolio website at midhunnk.com, or via his social media profiles on GitHub, LinkedIn, and Twitter.",
+      "You can contact Midhun NK through the contact form on his portfolio website at midhunnk.in, or via his social media profiles on GitHub, LinkedIn, and Twitter.",
   },
 ];
 
@@ -86,7 +86,7 @@ export const freelanceFAQs: FAQ[] = [
   {
     question: "How much does Midhun NK charge for freelance development?",
     answer:
-      "Midhun NK's freelance rates vary based on project scope and complexity. Contact him directly through midhunnk.com/freelance for a custom quote tailored to your project needs.",
+      "Midhun NK's freelance rates vary based on project scope and complexity. Contact him directly through midhunnk.in/freelance for a custom quote tailored to your project needs.",
   },
   {
     question: "What is Midhun NK's development process?",

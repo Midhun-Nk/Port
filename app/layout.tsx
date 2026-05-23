@@ -3,7 +3,7 @@ import "./globals.css";
 import ClientShell from "@/components/ClientShell";
 import Script from "next/script";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 export const viewport: Viewport = {
   width: "device-width",

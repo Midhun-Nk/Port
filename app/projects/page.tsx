@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ProjectsClient from "@/components/ProjectsClient";
 import Script from "next/script";
 
-const BASE_URL = "https://midhunnk.com";
+const BASE_URL = "https://midhunnk.in";
 
 export const metadata: Metadata = {
   title: "Projects — React & Next.js Web Applications by Midhun NK",
