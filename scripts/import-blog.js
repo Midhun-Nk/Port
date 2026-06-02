@@ -100,7 +100,8 @@ async function run() {
           unordered_list: Array.isArray(sub.unordered_list) ? sub.unordered_list : null,
           ordered_list: Array.isArray(sub.ordered_list) ? sub.ordered_list : null,
           video_url: sub.video_url || null,
-          web_url: sub.web_url || null
+          web_url: sub.web_url || null,
+          code_snippet: sub.code_snippet || null
         }))
       : []
   };

@@ -10,12 +10,14 @@ import {
   Settings,
   List,
   ArrowLeft,
+  Mail,
 } from "lucide-react";
 
 const navItems = [
   { label: "Dashboard", path: "/admin", icon: LayoutDashboard },
   { label: "All Blogs", path: "/admin/blogs", icon: List },
   { label: "New Post", path: "/admin/blogs/new", icon: PenSquare },
+  { label: "Messages", path: "/admin/contacts", icon: Mail },
   { label: "Settings", path: "/admin/settings", icon: Settings },
 ];
 

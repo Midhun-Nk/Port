@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Clock, Eye, Tag, ArrowLeft, Play, Calendar, ExternalLink } from "lucide-react";
+import { Clock, Eye, Tag, ArrowLeft, Play, Calendar, ExternalLink, Copy, Check } from "lucide-react";
 import Link from "next/link";
 import { supabase, Subtopic } from "@/lib/supabase";
 
@@ -55,6 +55,15 @@ export default function BlogPostPage() {
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const handleCopy = (code: string, idx: number) => {
+    navigator.clipboard.writeText(code);
+    setCopiedIdx(idx);
+    setTimeout(() => {
+      setCopiedIdx(null);
+    }, 2000);
+  };
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -232,6 +241,34 @@ export default function BlogPostPage() {
                         <li key={i}>{item}</li>
                       ))}
                     </ol>
+                  )}
+
+                  {/* Subtopic Code Snippet */}
+                  {sub.code_snippet && (
+                    <div className="mt-6 border border-border bg-secondary/30 rounded-none overflow-hidden">
+                      <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-background/60 font-technical text-[10px] uppercase tracking-widest text-muted-foreground">
+                        <span>Code Snippet / Prompt</span>
+                        <button
+                          onClick={() => handleCopy(sub.code_snippet!, idx)}
+                          className="flex items-center gap-1.5 hover:text-primary transition-colors focus:outline-none"
+                        >
+                          {copiedIdx === idx ? (
+                            <>
+                              <Check size={12} className="text-green-400" />
+                              <span className="text-green-400">Copied!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={12} />
+                              <span>Copy</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                      <pre className="p-4 overflow-x-auto font-mono text-xs text-foreground bg-black/10 select-text leading-relaxed">
+                        <code>{sub.code_snippet}</code>
+                      </pre>
+                    </div>
                   )}
 
                   {/* Subtopic Website Link */}

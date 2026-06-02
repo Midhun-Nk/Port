@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS blogs (
   content TEXT NOT NULL,
   topic TEXT,
   subtopic TEXT,
+  subtopics JSONB DEFAULT '[]',
   tags TEXT[] DEFAULT '{}',
   cover_image TEXT,
   youtube_url TEXT,

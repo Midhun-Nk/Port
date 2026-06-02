@@ -104,6 +104,7 @@ interface EditorSubtopic {
   ordered_list_raw: string;
   video_url: string;
   web_url: string;
+  code_snippet: string;
 }
 
 export default function BlogEditor({ initialData, isEdit = false }: Props) {
@@ -118,6 +119,7 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
         ordered_list_raw: Array.isArray(sub.ordered_list) ? sub.ordered_list.join("\n") : "",
         video_url: sub.video_url || "",
         web_url: sub.web_url || "",
+        code_snippet: sub.code_snippet || "",
       }));
     }
     return [];
@@ -154,6 +156,7 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
         ordered_list_raw: "",
         video_url: "",
         web_url: "",
+        code_snippet: "",
       },
     ]);
   };
@@ -219,6 +222,7 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
           : null,
         video_url: sub.video_url || null,
         web_url: sub.web_url || null,
+        code_snippet: sub.code_snippet || null,
       })),
     };
 
@@ -393,6 +397,17 @@ export default function BlogEditor({ initialData, isEdit = false }: Props) {
                       rows={4}
                       placeholder="Add descriptive details here..."
                       className="w-full bg-background border border-border px-3 py-2 font-technical text-sm focus:border-primary focus:outline-none transition-colors text-foreground resize-y"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="font-technical text-[9px] uppercase tracking-widest text-muted-foreground">Code Snippet / Prompt</label>
+                    <textarea
+                      value={sub.code_snippet}
+                      onChange={(e) => handleSubtopicFieldChange(idx, "code_snippet", e.target.value)}
+                      rows={4}
+                      placeholder="Enter code block or AI prompt here..."
+                      className="w-full bg-background border border-border px-3 py-2 font-mono text-xs focus:border-primary focus:outline-none transition-colors text-foreground resize-y placeholder:text-muted-foreground/40"
                     />
                   </div>
 

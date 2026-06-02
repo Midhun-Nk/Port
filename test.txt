@@ -26,6 +26,7 @@ JSON Schema & Fields Description:
     - ordered_list (array of strings): Numbered steps (leave as [] if none).
     - video_url (string): Subtopic YouTube link (set to "" if none).
     - web_url (string): Subtopic website or live demo URL (set to "" if none).
+    - code_snippet (string): Subtopic prompt or code block (set to "" if none).
 
 Here is the exact structure to follow:
 {
@@ -54,7 +55,8 @@ Here is the exact structure to follow:
       "unordered_list": [],
       "ordered_list": [],
       "video_url": "",
-      "web_url": ""
+      "web_url": "",
+      "code_snippet": ""
     }
   ]
 }

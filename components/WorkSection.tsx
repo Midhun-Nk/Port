@@ -121,7 +121,7 @@ const WorkSection = ({ onViewEnter, onViewLeave, onPointerEnter, onPointerLeave 
   };
 
   return (
-    <section className="px-8 md:px-12">
+    <section className="px-8 md:px-8">
       <div className="flex justify-between items-end mb-10 border-b border-border pb-6">
         <div>
           <span className="font-technical text-[10px] text-primary uppercase tracking-widest">Selected Work</span>
