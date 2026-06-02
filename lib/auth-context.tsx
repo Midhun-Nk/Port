@@ -15,7 +15,7 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 // Single admin credentials — stored in env vars for security
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "admin@midhunnk.com";
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "admin@midhunnk.in";
 const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123";
 
 export function AuthProvider({ children }: { children: ReactNode }) {

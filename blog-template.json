@@ -6,143 +6,119 @@
 "topic": "AI Development",
 "subtopic": "Claude Code",
 "tags": [
-"claude code",
-"openrouter",
-"gemini ai",
-"deepseek",
-"ai coding",
-"developer tools",
-"anthropic",
-"coding assistant",
-"llm",
-"ai cli"
+"lovable ai",
+"lovable premium",
+"linkedin premium",
+"free ai tools",
+"ai productivity",
+"linkedin benefits",
+"lovable credits",
+"creator tools"
 ],
 "cover_image": "",
 "youtube_url": "",
-"seo_title": "Use Claude Code for Free with Gemini & DeepSeek via OpenRouter",
-"seo_description": "Step-by-step guide to connect Claude Code with OpenRouter and use free AI models like Gemini and DeepSeek.",
-"seo_keywords": "claude code free, openrouter claude code, gemini claude code, deepseek claude code, ai coding assistant",
+"seo_title": "How to Get Free Lovable Premium Credits via LinkedIn Premium",
+"seo_description": "Complete guide to unlock Lovable Premium and free AI credits using LinkedIn Premium partner benefits.",
+"seo_keywords": "lovable premium free, lovable credits free, linkedin premium benefits, free ai tools, lovable ai credits",
 "og_image": "",
 "published": true,
 "featured": true,
-"read_time": 4,
+"read_time": 3,
 "author": "Midhun NK",
 "subtopics": [
 {
-"title": "1. Install Claude Code",
+"title": "1. Activate LinkedIn Premium First",
 "image": "",
-"details": "The first step is installing Claude Code on your machine. Open your terminal and run the installation command below.",
+"details": "Before accessing Lovable partner rewards, make sure your LinkedIn Premium subscription is active.",
 "unordered_list": [
-"Works on macOS and Linux",
-"Official Claude Code installer",
-"Quick CLI setup"
+"LinkedIn Premium required",
+"Use active LinkedIn account",
+"Benefits vary by region"
 ],
 "ordered_list": [
-"Open terminal",
-"Run installation command",
-"Wait for installation to finish"
+"Open LinkedIn",
+"Verify Premium access",
+"Continue to benefits section"
 ],
 "video_url": "",
-"web_url": "https://claude.ai/",
-"code_snippet": "curl -fsSL https://claude.ai/install.sh | bash"
+"web_url": "[https://www.linkedin.com/premium/](https://www.linkedin.com/premium/)"
 },
 {
-"title": "2. Open Antigravity and Paste the Setup Prompt",
+"title": "2. Open LinkedIn Premium Benefits",
 "image": "",
-"details": "Launch Antigravity and paste the setup prompt from the guide or PDF. This prompt will generate the configuration required for OpenRouter integration.",
+"details": "Inside the LinkedIn Premium dashboard, navigate to the partner offers or benefits section where additional rewards are listed.",
 "unordered_list": [
-"No manual JSON editing",
-"Automatically generates configuration",
-"Simple setup process"
+"Find hidden partner offers",
+"Explore productivity rewards",
+"Offers update regularly"
 ],
 "ordered_list": [
-"Open Antigravity",
-"Paste setup prompt",
-"Run the prompt"
+"Open LinkedIn Premium",
+"Navigate to benefits page",
+"Scroll through partner rewards"
 ],
 "video_url": "",
-"web_url": ""
+"web_url": "[https://www.linkedin.com/premium/](https://www.linkedin.com/premium/)"
 },
 {
-"title": "3. Create an OpenRouter API Key",
+"title": "3. Find the Lovable Premium Offer",
 "image": "",
-"details": "OpenRouter lets you access multiple AI providers through a single API. Create a free API key and copy it for the next step.",
+"details": "Look for the Lovable AI partner offer inside the benefits section. Some users receive free premium access along with bonus AI credits.",
 "unordered_list": [
-"Supports multiple AI providers",
-"Single API for many models",
-"Free models available"
+"1 year premium access",
+"Free Lovable credits",
+"Exclusive LinkedIn partner offer"
 ],
 "ordered_list": [
-"Create OpenRouter account",
-"Generate API key",
-"Copy the API key"
+"Locate Lovable AI offer",
+"Open offer page",
+"Continue to activation"
 ],
 "video_url": "",
-"web_url": "https://openrouter.ai/"
+"web_url": "[https://lovable.dev/](https://lovable.dev/)"
 },
 {
-"title": "4. Configure Your Preferred Model",
+"title": "4. Login or Create a Lovable Account",
 "image": "",
-"details": "Paste your OpenRouter API key into Antigravity and select the model you want Claude Code to use.",
+"details": "To redeem the offer, login using your existing Lovable account or create a new one.",
 "unordered_list": [
-"Gemini models",
-"DeepSeek models",
-"Claude models",
-"Other OpenRouter-supported models"
+"Use valid email address",
+"Verify account if needed",
+"Complete signup process"
 ],
 "ordered_list": [
-"Paste API key",
-"Choose model",
-"Generate configuration"
+"Open Lovable website",
+"Login or signup",
+"Continue redemption process"
 ],
 "video_url": "",
-"web_url": "https://openrouter.ai/"
+"web_url": "[https://lovable.dev/](https://lovable.dev/)"
 },
 {
-"title": "5. Generate settings.json Automatically",
+"title": "5. Claim Free Premium Credits",
 "image": "",
-"details": "Antigravity automatically creates the required settings.json configuration and redirects Claude Code requests through OpenRouter.",
+"details": "After activation, the free premium credits will be added to your Lovable account automatically if the offer is available.",
 "unordered_list": [
-"Automatic setup",
-"No manual configuration",
-"Uses OpenRouter backend"
+"Credits may vary by account",
+"Premium features unlocked",
+"Check account dashboard"
 ],
 "ordered_list": [
-"Run configuration prompt",
-"Generate settings file",
-"Save configuration"
+"Finish activation",
+"Open Lovable dashboard",
+"Verify premium credits"
 ],
 "video_url": "",
-"web_url": ""
+"web_url": "[https://lovable.dev/](https://lovable.dev/)"
 },
 {
-"title": "6. Restart Terminal and Launch Claude Code",
+"title": "6. Important Notes About the Offer",
 "image": "",
-"details": "After configuration is complete, restart your terminal and launch Claude Code normally. It will now use the selected OpenRouter model.",
+"details": "LinkedIn partner offers can change anytime depending on promotions, country, or account eligibility. If the Lovable offer is unavailable, check again later because offers rotate frequently.",
 "unordered_list": [
-"Gemini-powered Claude Code",
-"DeepSeek-powered Claude Code",
-"Multiple model support"
-],
-"ordered_list": [
-"Restart terminal",
-"Run Claude command",
-"Start coding"
-],
-"video_url": "",
-"web_url": "",
-"code_snippet": "claude"
-},
-{
-"title": "7. Benefits of This Setup",
-"image": "",
-"details": "This setup gives you flexibility to switch between different AI providers without being locked into a single model ecosystem.",
-"unordered_list": [
-"Access free AI models",
-"Switch providers anytime",
-"Unified AI workflow",
-"Developer-friendly setup",
-"Supports Gemini and DeepSeek"
+"Offers may expire",
+"Availability differs by region",
+"Check benefits regularly"
 ],
 "ordered_list": [],
 "video_url": "",
